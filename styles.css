@@ -1,3 +1,8 @@
+:root {
+  --page-padding: clamp(40px, 6vw, 100px);
+  --card-margin: clamp(40px, 6vw, 100px);
+}
+
 /* ===== RESET & BASE ===== */
 *,
 *::before,
@@ -60,9 +65,9 @@ h2 {
 
 /* ===== HEADER & FOOTER CARDS (Fixed 40px margins) ===== */
 .hero-card {
-  width: calc(100% - 80px);
-  height: calc(100% - 80px);
-  margin: 40px;
+  width: calc(100% - (var(--card-margin) * 2));
+  height: calc(100% - (var(--card-margin) * 2));
+  margin: var(--card-margin);
   border-radius: 80px;
   background: #C4B5A8;
   display: flex;
@@ -181,7 +186,16 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0 40px;
+  padding: 0 var(--page-padding);
+}
+
+/* Align images to outer edges to ensure perfectly symmetric visual margins */
+.content-wrapper > .image-placeholder {
+  justify-self: end;
+}
+
+.content-reverse > .image-placeholder {
+  justify-self: start;
 }
 
 .content-reverse .text-block {
@@ -323,6 +337,7 @@ h2 {
   justify-content: center;
   width: 100%;
   text-align: left;
+  padding: 0 var(--page-padding);
 }
 
 .footer-container-inner {
@@ -399,15 +414,14 @@ h2 {
 
 /* ===== RESPONSIVE ===== */
 @media (max-width: 1024px) {
+  :root {
+    --page-padding: 40px;
+    --card-margin: 20px;
+  }
+
   /* General Sections & Cards */
   .section {
     padding: 80px 0;
-  }
-
-  .hero-card {
-    margin: 20px;
-    width: calc(100% - 40px);
-    height: calc(100% - 40px);
   }
 
   /* Hero Section Deco */
@@ -458,7 +472,7 @@ h2 {
     width: 100%;
     height: auto;
     max-width: 500px;
-    padding: 0 40px;
+    padding: 0 var(--page-padding);
     margin-bottom: 40px;
     z-index: 2;
   }
@@ -475,7 +489,7 @@ h2 {
   .team-container {
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 0 40px;
+    padding: 0 var(--page-padding);
     justify-items: center;
   }
 
@@ -505,7 +519,7 @@ h2 {
 
   .section-footer .hero-card {
     height: auto;
-    min-height: calc(100vh - 40px);
+    min-height: calc(100vh - (var(--card-margin) * 2));
     padding: 80px 40px;
   }
 
@@ -540,15 +554,17 @@ h2 {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --page-padding: 20px;
+    --card-margin: 16px;
+  }
+
   /* General Spacing & Cards */
   .section {
     padding: 60px 0;
   }
 
   .hero-card {
-    margin: 16px;
-    width: calc(100% - 32px);
-    height: calc(100% - 32px);
     border-radius: 40px;
   }
 
@@ -580,12 +596,7 @@ h2 {
 
   /* Team Section Spacing & Typography */
   .team-bg-image {
-    padding: 0 20px;
     margin-bottom: 30px;
-  }
-
-  .team-container {
-    padding: 0 20px;
   }
 
   .team-title {
@@ -606,12 +617,7 @@ h2 {
 
   /* Footer / Contact Section */
   .section-footer .hero-card {
-    min-height: calc(100vh - 32px);
     padding: 60px 20px;
-  }
-
-  .footer-container {
-    padding: 0 20px;
   }
 
   .footer-title {
