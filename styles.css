@@ -446,6 +446,12 @@ h2 {
     padding: 60px 0;
   }
 
+  /* Hero i stopka bez paddingu — karta wypełnia ekran z równym marginesem (16px) ze wszystkich stron */
+  .section-hero,
+  .section-footer {
+    padding: 0;
+  }
+
   .hero-card {
     border-radius: 40px;
   }
