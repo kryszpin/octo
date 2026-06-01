@@ -1,16 +1,58 @@
 <!DOCTYPE html>
-<html lang="pl">
+<html lang="pl" class="no-js">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Zamień klasę no-js na js jak najwcześniej: bez JS treść zostaje widoczna (fallback w CSS) -->
+  <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
   <title>OCTO Fabrics — Tkaniny obiciowe</title>
   <meta name="description"
     content="OCTO Fabrics to rzetelny dostawca tkanin obiciowych. Znajdujemy rozwiązania, nie tylko produkty. Dowiedz się więcej o naszej ofercie.">
+  <link rel="canonical" href="https://kryszpin.github.io/octo/">
+
+  <!-- Favicon -->
+  <link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+
+  <!-- Open Graph (podgląd przy udostępnianiu linku) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="OCTO Fabrics — Tkaniny obiciowe">
+  <meta property="og:description"
+    content="Rzetelny dostawca tkanin obiciowych. Znajdujemy rozwiązania, nie tylko produkty.">
+  <meta property="og:url" content="https://kryszpin.github.io/octo/">
+  <meta property="og:image" content="https://kryszpin.github.io/octo/assets/img-1.jpg">
+  <meta property="og:locale" content="pl_PL">
+  <meta property="og:site_name" content="OCTO Fabrics">
+  <meta name="twitter:card" content="summary_large_image">
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+
+  <!-- Dane strukturalne dla Google (firma lokalna) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "OCTO Fabrics",
+    "description": "Rzetelny dostawca tkanin obiciowych. Znajdujemy rozwiązania, nie tylko produkty.",
+    "url": "https://kryszpin.github.io/octo/",
+    "logo": "https://kryszpin.github.io/octo/assets/logo.svg",
+    "image": "https://kryszpin.github.io/octo/assets/img-1.jpg",
+    "telephone": "+48668870330",
+    "email": "office@octofabrics.com",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "ul. Gajowa 26",
+      "postalCode": "17-200",
+      "addressLocality": "Hajnówka",
+      "addressCountry": "PL"
+    },
+    "taxID": "5431947971",
+    "vatID": "PL5431947971"
+  }
+  </script>
 </head>
 
 <body>
@@ -21,6 +63,7 @@
       <img src="assets/hero-deco-1.png" alt="" class="hero-deco-1">
       <img src="assets/hero-deco-2.png" alt="" class="hero-deco-2">
       <div class="hero-content">
+        <h1 class="visually-hidden">OCTO Fabrics — tkaniny obiciowe</h1>
         <div class="hero-logo">
           <img src="assets/logo.svg" alt="OCTO" class="logo-main">
         </div>

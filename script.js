@@ -2,6 +2,15 @@
 (function () {
   'use strict';
 
+  /* Fallback dla bardzo starych przeglądarek bez IntersectionObserver:
+     pokaż całą treść od razu, bez animacji. */
+  if (!('IntersectionObserver' in window)) {
+    document.querySelectorAll('.animate-on-scroll, .hero-card').forEach(function (el) {
+      el.classList.add('visible');
+    });
+    return;
+  }
+
   const observerOptions = {
     root: null,
     rootMargin: '0px 0px -80px 0px',

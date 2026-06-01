@@ -3,3 +3,6 @@ resources/
 
 # Pliki systemowe macOS
 .DS_Store
+
+# Lokalna konfiguracja narzędzi deweloperskich
+.claude/

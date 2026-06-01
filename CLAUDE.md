@@ -22,7 +22,6 @@ Statyczna strona-wizytówka (landing page) dla **OCTO Fabrics** — dostawcy tka
 | [assets/](assets/) | Grafiki używane na stronie (logo, zdjęcia, dekoracje). **Publikowane.** |
 | [resources/](resources/) | Grafiki inspiracyjne/robocze (Gemini, Unsplash, screenshoty). **NIE publikowane** — wykluczone w `.gitignore`. |
 | [push.sh](push.sh) | Skrypt deployu: `git add . && commit && push`. |
-| `octo.html` / `octo.jpg` | Stara, pojedyncza grafika-placeholder. Pozostałość, nie część właściwej strony. |
 | [notes.md](notes.md) | Szczegółowe notatki projektowe i dziennik decyzji. |
 
 ## Publikacja (GitHub Pages)
@@ -34,7 +33,7 @@ Statyczna strona-wizytówka (landing page) dla **OCTO Fabrics** — dostawcy tka
 ## Konwencje / na co uważać
 
 - **Wymiary dekoracji są na sztywno w CSS** (`hero-deco-1: 486px`, `hero-deco-2: 950px`, `contact-deco: 860px`) z `height: auto` — celowo, żeby podmiana assetów na wersje @2x/@3x nie rozjechała layoutu.
-- Grafiki w `assets/` są **duże** (kilka MB każda, `mirek.jpg` ~1.3 MB, `octo.jpg` ~15 MB). Przy okazji warto rozważyć kompresję — wpływa na czas ładowania.
+- Grafiki w `assets/` są **duże** (kilka MB każda, np. `mirek.jpg` ~1.3 MB, `img-*.jpg` ~1.5–1.8 MB). Warto je skompresować / przekonwertować na WebP — wpływa na czas ładowania (LCP) i SEO.
 - Strona jest jednoplikowa — wszystkie sekcje w `index.html`, nie ma routingu.
 
 ## ⚠️ Bezpieczeństwo — do pilnego załatwienia
