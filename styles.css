@@ -405,6 +405,32 @@ h2 {
 }
 
 /* ===== RESPONSIVE ===== */
+
+/* Fonty: zmniejszone od 1180px w dół (te same wartości aż do telefonu).
+   Układ pozostaje bez zmian — tu sterujemy WYŁĄCZNIE typografią. */
+@media (max-width: 1180px) {
+  h2 {
+    font-size: clamp(32px, 10vw, 56px);
+  }
+
+  .team-title,
+  .footer-title {
+    font-size: clamp(36px, 10vw, 56px);
+  }
+
+  .text-block p,
+  .team-text-block p,
+  .footer-info-group p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .team-list p {
+    font-size: 26px;
+    line-height: 38px;
+  }
+}
+
 @media (max-width: 1024px) {
   /* General Sections & Cards */
   .section {
@@ -558,11 +584,6 @@ h2 {
     border-radius: 40px;
   }
 
-  /* Typography */
-  h2 {
-    font-size: clamp(32px, 10vw, 56px);
-  }
-
   /* Hero Section Deco & Logo */
   .hero-deco-1 {
     width: 160px;
@@ -590,19 +611,11 @@ h2 {
   }
 
   .team-title {
-    font-size: clamp(36px, 10vw, 56px);
     margin-bottom: 30px;
   }
 
   .team-text-block p {
-    font-size: 18px;
-    line-height: 26px;
     margin-bottom: 30px;
-  }
-
-  .team-list p {
-    font-size: 26px;
-    line-height: 38px;
   }
 
   /* Footer / Contact Section */
@@ -611,13 +624,7 @@ h2 {
   }
 
   .footer-title {
-    font-size: clamp(36px, 10vw, 56px);
     margin-bottom: 40px;
-  }
-
-  .footer-info-group p {
-    font-size: 18px;
-    line-height: 26px;
   }
 
   .contact-deco {
