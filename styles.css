@@ -249,7 +249,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: right bottom; /* Align him closer to the text block while staying in his area */
+  object-position: right center; /* Wyśrodkowany w pionie obok tekstu (zamiast przyklejony do dołu) */
   opacity: 0;
   transform: scale(1.1);
   transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
