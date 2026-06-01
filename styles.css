@@ -446,9 +446,9 @@ h2 {
     padding: 24px 0;
   }
 
-  /* Pierwsza sekcja: nadpisuje bazowe 120px, równo z resztą (24/24 w każdej sekcji) */
+  /* Pierwsza sekcja: po hero (0 paddingu na dole) — 32px + 16px marginesu karty hero = 48px odstępu */
   #about {
-    padding-top: 24px;
+    padding-top: 32px;
   }
 
   /* Hero i stopka bez paddingu — karta wypełnia ekran z równym marginesem (16px) ze wszystkich stron */
@@ -470,10 +470,10 @@ h2 {
     font-size: 18px;
   }
 
-  /* Content Sections — jedna kolumna */
+  /* Content Sections — jedna kolumna; odstęp tekst<->zdjęcie 48px (jak między sekcjami) */
   .content-wrapper {
     grid-template-columns: 1fr;
-    gap: 36px;
+    gap: 48px;
     text-align: center;
     justify-items: center;
   }
@@ -497,7 +497,7 @@ h2 {
     justify-content: flex-start;
     height: auto;
     min-height: auto;
-    padding: 60px 0;
+    padding: 24px 0;
   }
 
   .team-bg-image {
