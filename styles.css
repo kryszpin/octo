@@ -446,9 +446,9 @@ h2 {
     padding: 40px 0;
   }
 
-  /* Pierwsza sekcja: górny odstęp jak ten "dobry" pod hero */
+  /* Pierwsza sekcja: nadpisuje bazowe 120px, równo z resztą (40/40 w każdej sekcji) */
   #about {
-    padding-top: 48px;
+    padding-top: 40px;
   }
 
   /* Hero i stopka bez paddingu — karta wypełnia ekran z równym marginesem (16px) ze wszystkich stron */
