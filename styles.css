@@ -1,5 +1,5 @@
 :root {
-  --page-padding: 40px;
+  --page-padding: clamp(40px, 6vw, 100px);
   --card-margin: 40px;
 }
 
