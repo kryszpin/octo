@@ -1,0 +1,632 @@
+/* ===== RESET & BASE ===== */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+  background-color: #ffffff;
+  color: #000000;
+  overflow-x: hidden;
+  line-height: 1.5;
+}
+
+/* ===== TYPOGRAPHY ===== */
+h2 {
+  font-weight: 700;
+  font-size: clamp(42px, 6vw, 96px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 0.5em;
+}
+
+.text-block p {
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 28px;
+}
+
+.text-block p strong {
+  font-weight: 700;
+}
+
+/* ===== SECTIONS (Exact 100vh) ===== */
+.section {
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0;
+}
+
+.section-hero,
+.section-footer {
+  height: 100vh;
+  padding: 0;
+}
+
+/* ===== HEADER & FOOTER CARDS (Fixed 40px margins) ===== */
+.hero-card {
+  width: calc(100% - 80px);
+  height: calc(100% - 80px);
+  margin: 40px;
+  border-radius: 80px;
+  background: #C4B5A8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  text-align: center;
+  z-index: 2;
+}
+
+.hero-logo {
+  width: clamp(200px, 30vw, 400px);
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out 0.3s forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.hero-deco-1 {
+  position: absolute;
+  top: -160px;
+  left: -160px;
+  width: 486px;
+  height: auto;
+  filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
+  z-index: 1;
+  opacity: 0;
+  transform: translate(-150px, -150px) scale(0.75);
+  animation: flyInLeft 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+}
+
+@keyframes flyInLeft {
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.hero-deco-2 {
+  position: absolute;
+  top: -240px;
+  right: -340px;
+  width: 950px;
+  height: auto;
+  filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
+  z-index: 1;
+  opacity: 0;
+  transform: translate(150px, 150px) scale(0.75);
+  animation: flyInRight 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+
+@keyframes flyInRight {
+  to {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+}
+
+.contact-deco {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 860px;
+  height: auto;
+  filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
+  z-index: 1;
+  opacity: 0;
+  transform: translate(60px, 60px) scale(0.9);
+  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s; /* Added 0.4s delay */
+}
+
+.section-footer .hero-card.visible .contact-deco {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.logo-main {
+  width: 100%;
+  height: auto;
+}
+
+.logo-accent {
+  position: absolute;
+  top: 0;
+  left: 54.5%;
+  width: 5.5%;
+  height: auto;
+}
+
+.hero-subtitle {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 28px;
+  color: #ffffff;
+  opacity: 0;
+  animation: fadeIn 1.2s ease-out 0.6s forwards;
+}
+
+
+/* ===== CONTENT WRAPPER ===== */
+.content-wrapper {
+  display: grid;
+  grid-template-columns: minmax(0, 550px) minmax(0, 550px);
+  gap: clamp(40px, 8vw, 160px);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 0 40px;
+}
+
+.content-reverse .text-block {
+  grid-column: 2;
+}
+
+.content-reverse .image-placeholder {
+  grid-column: 1;
+  grid-row: 1;
+  /* Ensure it stays in the first row alongside the text */
+}
+
+.text-block {
+  width: 100%;
+}
+
+/* ===== IMAGES ===== */
+.image-placeholder {
+  width: 100%;
+  height: auto;
+  border-radius: 40px;
+  object-fit: cover;
+  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.image-placeholder:hover {
+  transform: scale(1.02);
+}
+
+.image-portrait {
+  max-width: 500px;
+  aspect-ratio: 3 / 4;
+}
+
+#about {
+  padding-top: 120px;
+}
+
+/* ===== TEAM SECTION ===== */
+.section-team {
+  background-color: #ffffff;
+  justify-content: flex-end;
+  position: relative;
+  padding-bottom: 120px;
+  min-height: 800px; /* Ensure enough height for the portrait */
+}
+
+.team-bg-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: calc(50vw + 80px); /* Spans exactly from edge to the grid gap start */
+  z-index: 1;
+}
+
+.team-bg-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: right bottom; /* Align him closer to the text block while staying in his area */
+  opacity: 0;
+  transform: scale(1.1);
+  transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.section-team.visible .team-bg-image img {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.team-container {
+  display: grid;
+  grid-template-columns: minmax(0, 550px) minmax(0, 550px);
+  gap: clamp(40px, 8vw, 160px);
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+.team-text-block {
+  grid-column: 2;
+  /* Always in the second column to follow the guide */
+  width: 100%;
+  text-align: left;
+}
+
+.team-title {
+  font-size: clamp(48px, 6vw, 96px);
+  line-height: 1.1;
+  margin-bottom: 60px;
+  color: #000000;
+}
+
+.team-text-block p {
+  font-size: 20px;
+  line-height: 28px;
+  margin-bottom: 60px;
+}
+
+.team-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.team-list p {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 48px;
+  margin-bottom: 0;
+}
+
+.team-list a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.team-list a:hover {
+  opacity: 0.7;
+}
+
+
+
+/* ===== FOOTER SPECIFIC ===== */
+.section-footer .hero-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 80px 80px 160px 0px rgba(0, 0, 0, 0.08);
+}
+
+.footer-container {
+  display: grid;
+  grid-template-columns: minmax(0, 550px) minmax(0, 550px);
+  gap: clamp(40px, 8vw, 160px);
+  justify-content: center;
+  width: 100%;
+  text-align: left;
+}
+
+.footer-container-inner {
+  grid-column: 1;
+  /* Always in the first column to follow the guide */
+}
+
+
+.footer-title {
+  font-size: clamp(48px, 6vw, 96px);
+  line-height: 1.1;
+  color: #ffffff;
+  margin-bottom: 60px;
+  filter: drop-shadow(16px 16px 24px rgba(0, 0, 0, 0.08));
+}
+
+.footer-content-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 60px;
+}
+
+.footer-info-group p {
+  font-size: 20px;
+  line-height: 28px;
+  color: #ffffff;
+}
+
+.footer-info-group a {
+  color: inherit;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+}
+
+.footer-info-group a:hover {
+  opacity: 0.7;
+}
+
+.footer-logo {
+  width: 150px;
+  opacity: 1;
+  margin: 0;
+}
+
+.logo-footer {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+
+/* ===== ANIMATIONS ===== */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.7s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.image-placeholder.animate-on-scroll {
+  transform: translateY(30px) scale(0.95);
+  transition: all 1s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.image-placeholder.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  /* General Sections & Cards */
+  .section {
+    padding: 80px 0;
+  }
+
+  .hero-card {
+    margin: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
+  }
+
+  /* Hero Section Deco */
+  .hero-deco-1 {
+    width: 280px;
+    top: -80px;
+    left: -80px;
+  }
+
+  .hero-deco-2 {
+    width: 550px;
+    bottom: -150px;
+    right: -150px;
+  }
+
+  /* Content Sections */
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .content-reverse .text-block,
+  .content-reverse .image-placeholder {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* Team Section */
+  .section-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: auto;
+    padding: 80px 0;
+  }
+
+  .team-bg-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    padding: 0 40px;
+    margin-bottom: 40px;
+    z-index: 2;
+  }
+
+  .team-bg-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 40px;
+  }
+
+  .team-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 40px;
+    justify-items: center;
+  }
+
+  .team-text-block {
+    grid-column: auto;
+    text-align: center;
+    max-width: 600px;
+  }
+
+  .team-title {
+    margin-bottom: 40px;
+  }
+
+  .team-text-block p {
+    margin-bottom: 40px;
+  }
+
+  .team-list {
+    align-items: center;
+  }
+
+  /* Footer / Contact Section */
+  .section-footer {
+    height: auto;
+    min-height: 100vh;
+  }
+
+  .section-footer .hero-card {
+    height: auto;
+    min-height: calc(100vh - 40px);
+    padding: 80px 40px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .footer-container-inner {
+    grid-column: auto;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-info-group {
+    text-align: center;
+  }
+
+  .footer-logo {
+    margin: 40px auto 0 auto;
+  }
+
+  .contact-deco {
+    width: 400px;
+    bottom: -60px;
+    right: -60px;
+  }
+}
+
+@media (max-width: 768px) {
+  /* General Spacing & Cards */
+  .section {
+    padding: 60px 0;
+  }
+
+  .hero-card {
+    margin: 16px;
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
+    border-radius: 40px;
+  }
+
+  /* Typography */
+  h2 {
+    font-size: clamp(32px, 10vw, 56px);
+  }
+
+  /* Hero Section Deco & Logo */
+  .hero-deco-1 {
+    width: 160px;
+    top: -40px;
+    left: -40px;
+  }
+
+  .hero-deco-2 {
+    width: 320px;
+    bottom: -80px;
+    right: -80px;
+  }
+
+  .hero-logo {
+    width: clamp(160px, 45vw, 280px);
+  }
+
+  .hero-subtitle {
+    font-size: 18px;
+  }
+
+  /* Team Section Spacing & Typography */
+  .team-bg-image {
+    padding: 0 20px;
+    margin-bottom: 30px;
+  }
+
+  .team-container {
+    padding: 0 20px;
+  }
+
+  .team-title {
+    font-size: clamp(36px, 10vw, 56px);
+    margin-bottom: 30px;
+  }
+
+  .team-text-block p {
+    font-size: 18px;
+    line-height: 26px;
+    margin-bottom: 30px;
+  }
+
+  .team-list p {
+    font-size: 26px;
+    line-height: 38px;
+  }
+
+  /* Footer / Contact Section */
+  .section-footer .hero-card {
+    min-height: calc(100vh - 32px);
+    padding: 60px 20px;
+  }
+
+  .footer-container {
+    padding: 0 20px;
+  }
+
+  .footer-title {
+    font-size: clamp(36px, 10vw, 56px);
+    margin-bottom: 40px;
+  }
+
+  .footer-info-group p {
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  .contact-deco {
+    width: 220px;
+    bottom: -30px;
+    right: -30px;
+  }
+}
