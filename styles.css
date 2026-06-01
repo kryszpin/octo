@@ -96,11 +96,13 @@ h2 {
   to { opacity: 1; }
 }
 
+/* Dekoracje hero/stopki skalują się płynnie: rozmiar telefonowy przy <=800px,
+   pełny desktopowy przy >=1180px, liniowo pomiędzy (clamp zamiast progów). */
 .hero-deco-1 {
   position: absolute;
-  top: -160px;
-  left: -160px;
-  width: 486px;
+  top: clamp(-160px, 212.6px - 31.58vw, -40px);
+  left: clamp(-160px, 212.6px - 31.58vw, -40px);
+  width: clamp(160px, 85.79vw - 526.3px, 486px);
   height: auto;
   filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
   z-index: 1;
@@ -119,8 +121,8 @@ h2 {
 .hero-deco-2 {
   position: absolute;
   top: -240px;
-  right: -340px;
-  width: 950px;
+  right: clamp(-340px, 467.4px - 68.42vw, -80px);
+  width: clamp(320px, 165.79vw - 1006.3px, 950px);
   height: auto;
   filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
   z-index: 1;
@@ -138,9 +140,9 @@ h2 {
 
 .contact-deco {
   position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 860px;
+  bottom: clamp(-30px, 7.89vw - 93.16px, 0px);
+  right: clamp(-30px, 7.89vw - 93.16px, 0px);
+  width: clamp(220px, 168.42vw - 1127.4px, 860px);
   height: auto;
   filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
   z-index: 1;
@@ -448,19 +450,7 @@ h2 {
     border-radius: 40px;
   }
 
-  /* Hero Section Deco & Logo */
-  .hero-deco-1 {
-    width: 160px;
-    top: -40px;
-    left: -40px;
-  }
-
-  .hero-deco-2 {
-    width: 320px;
-    bottom: -80px;
-    right: -80px;
-  }
-
+  /* Hero Logo (dekoracje skalują się płynnie przez clamp w regułach bazowych) */
   .hero-logo {
     width: clamp(160px, 45vw, 280px);
   }
@@ -583,12 +573,6 @@ h2 {
 
   .footer-logo {
     margin: 40px auto 0 auto;
-  }
-
-  .contact-deco {
-    width: 220px;
-    bottom: -30px;
-    right: -30px;
   }
 }
 
