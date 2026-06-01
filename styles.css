@@ -502,12 +502,13 @@ h2 {
 
   .team-bg-image {
     position: relative;
-    width: 100%;
+    width: calc(100% - (var(--page-padding) * 2));
     height: auto;
     max-width: 500px;
-    padding: 0 var(--page-padding);
     margin-bottom: 30px;
     z-index: 2;
+    overflow: hidden;       /* przycina powiększone zdjęcie do zaokrąglonej ramki */
+    border-radius: 40px;
   }
 
   .team-bg-image img {
@@ -516,7 +517,13 @@ h2 {
     aspect-ratio: 3 / 4;
     object-fit: cover;
     object-position: center;
-    border-radius: 40px;
+    border-radius: 0;
+    transform-origin: center 68%;  /* kadrowanie skupione na twarzy, nie nad głową */
+  }
+
+  /* Lekkie przybliżenie — ucina pustą przestrzeń nad głową i białe boki */
+  .section-team.visible .team-bg-image img {
+    transform: scale(1.22);
   }
 
   .team-container {
