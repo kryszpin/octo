@@ -1,6 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
+
 :root {
   --page-padding: clamp(40px, 6vw, 100px);
-  --card-margin: 40px;
+  --card-margin: 80px;
 }
 
 /* ===== RESET & BASE ===== */
@@ -11,8 +13,6 @@
   padding: 0;
   box-sizing: border-box;
 }
-
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -46,7 +46,7 @@ h2 {
   font-weight: 700;
 }
 
-/* ===== SECTIONS (Exact 100vh) ===== */
+/* ===== SECTIONS ===== */
 .section {
   width: 100vw;
   display: flex;
@@ -63,7 +63,7 @@ h2 {
   padding: 0;
 }
 
-/* ===== HEADER & FOOTER CARDS (Fixed 40px margins) ===== */
+/* ===== HERO & FOOTER CARDS (80px margins on desktop & tablet) ===== */
 .hero-card {
   width: calc(100% - (var(--card-margin) * 2));
   height: calc(100% - (var(--card-margin) * 2));
@@ -147,7 +147,7 @@ h2 {
   z-index: 1;
   opacity: 0;
   transform: translate(60px, 60px) scale(0.9);
-  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s; /* Added 0.4s delay */
+  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
 }
 
 .section-footer .hero-card.visible .contact-deco {
@@ -205,7 +205,6 @@ h2 {
 .content-reverse .image-placeholder {
   grid-column: 1;
   grid-row: 1;
-  /* Ensure it stays in the first row alongside the text */
 }
 
 .text-block {
@@ -240,7 +239,7 @@ h2 {
   justify-content: flex-end;
   position: relative;
   padding-bottom: 120px;
-  min-height: 800px; /* Ensure enough height for the portrait */
+  min-height: 800px;
 }
 
 .team-bg-image {
@@ -248,7 +247,7 @@ h2 {
   top: 0;
   left: 0;
   height: 100%;
-  width: calc(50vw + 80px); /* Spans exactly from edge to the grid gap start */
+  width: calc(50vw + 80px);
   z-index: 1;
 }
 
@@ -256,7 +255,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: right bottom; /* Align him closer to the text block while staying in his area */
+  object-position: right bottom;
   opacity: 0;
   transform: scale(1.1);
   transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -280,7 +279,6 @@ h2 {
 
 .team-text-block {
   grid-column: 2;
-  /* Always in the second column to follow the guide */
   width: 100%;
   text-align: left;
 }
@@ -321,7 +319,6 @@ h2 {
 }
 
 
-
 /* ===== FOOTER SPECIFIC ===== */
 .section-footer .hero-card {
   display: flex;
@@ -342,9 +339,7 @@ h2 {
 
 .footer-container-inner {
   grid-column: 1;
-  /* Always in the first column to follow the guide */
 }
-
 
 .footer-title {
   font-size: clamp(48px, 6vw, 96px);
@@ -412,43 +407,40 @@ h2 {
   transform: translateY(0) scale(1);
 }
 
-/* ===== RESPONSIVE ===== */
-@media (max-width: 1024px) {
-  /* General Sections & Cards */
-  .section {
-    padding: 80px 0;
+
+/* ===== TABLET (800px – 1024px) ===== */
+@media (max-width: 1024px) and (min-width: 801px) {
+  :root {
+    --page-padding: 48px;
+    --card-margin: 80px; /* keep 80px card margin on tablet */
   }
 
-  /* Hero Section Deco */
-  .hero-deco-1 {
-    width: 280px;
-    top: -80px;
-    left: -80px;
-  }
-
-  .hero-deco-2 {
-    width: 550px;
-    bottom: -150px;
-    right: -150px;
-  }
-
-  /* Content Sections */
+  /* Content grid: switch to single column for sections */
   .content-wrapper {
     grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-    justify-items: center;
+    gap: 48px;
+    text-align: left;
+    justify-items: start;
+    max-width: 680px;
+    margin: 0 auto;
   }
 
+  /* Reset reverse layout overrides */
   .content-reverse .text-block,
   .content-reverse .image-placeholder {
     grid-column: auto;
     grid-row: auto;
   }
 
+  /* Images fill column width */
   .image-placeholder {
     width: 100%;
-    max-width: 500px;
+    max-width: 100%;
+  }
+
+  .image-portrait {
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
   }
 
   /* Team Section */
@@ -466,18 +458,18 @@ h2 {
     position: relative;
     width: 100%;
     height: auto;
-    max-width: 500px;
+    max-width: 680px;
     padding: 0 var(--page-padding);
-    margin-bottom: 40px;
+    margin-bottom: 48px;
     z-index: 2;
   }
 
   .team-bg-image img {
     width: 100%;
     height: auto;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 4 / 3;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
     border-radius: 40px;
   }
 
@@ -485,13 +477,15 @@ h2 {
     grid-template-columns: 1fr;
     gap: 0;
     padding: 0 var(--page-padding);
-    justify-items: center;
+    justify-items: start;
+    max-width: 680px;
+    margin: 0 auto;
   }
 
   .team-text-block {
     grid-column: auto;
-    text-align: center;
-    max-width: 600px;
+    text-align: left;
+    max-width: 100%;
   }
 
   .team-title {
@@ -502,8 +496,132 @@ h2 {
     margin-bottom: 40px;
   }
 
-  .team-list {
+  /* Footer stays single-column */
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    text-align: left;
+    justify-items: start;
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 0 var(--page-padding);
+  }
+
+  .footer-container-inner {
+    grid-column: auto;
+  }
+}
+
+
+/* ===== MOBILE (<= 800px) ===== */
+@media (max-width: 800px) {
+  :root {
+    --page-padding: 32px;
+    --card-margin: 20px;
+  }
+
+  /* General Sections */
+  .section {
+    padding: 80px 0;
+  }
+
+  .section-hero,
+  .section-footer {
+    padding: 0;
+  }
+
+  /* Hero card gets smaller radius on mobile */
+  .hero-card {
+    border-radius: 48px;
+  }
+
+  /* Hero Section Deco */
+  .hero-deco-1 {
+    width: 280px;
+    top: -80px;
+    left: -80px;
+  }
+
+  .hero-deco-2 {
+    width: 550px;
+    bottom: -150px;
+    right: -150px;
+    top: auto;
+  }
+
+  /* Content Sections */
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    text-align: left;
+    justify-items: start;
+  }
+
+  .content-reverse .text-block,
+  .content-reverse .image-placeholder {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .image-portrait {
+    max-width: 100%;
+    aspect-ratio: 4 / 3;
+  }
+
+  /* Team Section */
+  .section-team {
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: auto;
+    padding: 80px 0;
+  }
+
+  .team-bg-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    padding: 0 var(--page-padding);
+    margin-bottom: 40px;
+    z-index: 2;
+  }
+
+  .team-bg-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: center top;
+    border-radius: 32px;
+  }
+
+  .team-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 var(--page-padding);
+    justify-items: start;
+  }
+
+  .team-text-block {
+    grid-column: auto;
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .team-title {
+    margin-bottom: 32px;
+  }
+
+  .team-text-block p {
+    margin-bottom: 32px;
   }
 
   /* Footer / Contact Section */
@@ -516,48 +634,44 @@ h2 {
     height: auto;
     min-height: calc(100vh - (var(--card-margin) * 2));
     padding: 80px var(--page-padding);
+    align-items: flex-start;
   }
 
   .footer-container {
     grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-    justify-items: center;
+    gap: 0;
+    text-align: left;
+    justify-items: start;
     padding: 0;
   }
 
   .footer-container-inner {
     grid-column: auto;
-    max-width: 550px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-info-group {
-    text-align: center;
-  }
-
-  .footer-logo {
-    margin: 40px auto 0 auto;
+    max-width: 100%;
   }
 
   .contact-deco {
-    width: 400px;
-    bottom: -60px;
-    right: -60px;
+    width: 340px;
+    bottom: -40px;
+    right: -40px;
   }
 }
 
-@media (max-width: 768px) {
+
+/* ===== SMALL MOBILE (<= 600px) ===== */
+@media (max-width: 600px) {
   :root {
     --page-padding: 20px;
     --card-margin: 16px;
   }
 
-  /* General Spacing & Cards */
   .section {
     padding: 60px 0;
+  }
+
+  .section-hero,
+  .section-footer {
+    padding: 0;
   }
 
   .hero-card {
@@ -580,6 +694,7 @@ h2 {
     width: 320px;
     bottom: -80px;
     right: -80px;
+    top: auto;
   }
 
   .hero-logo {
@@ -627,8 +742,8 @@ h2 {
   }
 
   .contact-deco {
-    width: 220px;
-    bottom: -30px;
-    right: -30px;
+    width: 180px;
+    bottom: -20px;
+    right: -20px;
   }
 }
