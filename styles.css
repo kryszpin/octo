@@ -443,12 +443,12 @@ h2 {
 
   /* General Spacing & Cards */
   .section {
-    padding: 40px 0;
+    padding: 24px 0;
   }
 
-  /* Pierwsza sekcja: nadpisuje bazowe 120px, równo z resztą (40/40 w każdej sekcji) */
+  /* Pierwsza sekcja: nadpisuje bazowe 120px, równo z resztą (24/24 w każdej sekcji) */
   #about {
-    padding-top: 40px;
+    padding-top: 24px;
   }
 
   /* Hero i stopka bez paddingu — karta wypełnia ekran z równym marginesem (16px) ze wszystkich stron */
@@ -473,7 +473,7 @@ h2 {
   /* Content Sections — jedna kolumna */
   .content-wrapper {
     grid-template-columns: 1fr;
-    gap: 60px;
+    gap: 36px;
     text-align: center;
     justify-items: center;
   }
