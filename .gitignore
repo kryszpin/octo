@@ -1,0 +1,5 @@
+# Grafiki inspiracyjne — tylko lokalnie, nie publikujemy na GitHub Pages
+resources/
+
+# Pliki systemowe macOS
+.DS_Store
