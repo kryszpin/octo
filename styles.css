@@ -525,7 +525,8 @@ h2 {
     margin-bottom: 30px;
   }
 
-  .team-text-block p {
+  /* tylko akapit opisowy, NIE imiona w .team-list */
+  .team-text-block > p {
     margin-bottom: 30px;
   }
 
@@ -533,17 +534,9 @@ h2 {
     align-items: center;
   }
 
-  /* Footer / Contact Section */
-  .section-footer {
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-
+  /* Footer / Contact — wypełnia ekran jak na desktopie (height = viewport - marginesy).
+     Hero (.section-hero) dziedziczy 100dvh z reguł bazowych. */
   .section-footer .hero-card {
-    height: auto;
-    min-height: calc(100vh - (var(--card-margin) * 2));
-    min-height: calc(100dvh - (var(--card-margin) * 2));
     padding: 60px 20px;
   }
 
