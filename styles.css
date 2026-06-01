@@ -1,10 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
-
-:root {
-  --page-padding: clamp(40px, 6vw, 100px);
-  --card-margin: 80px;
-}
-
 /* ===== RESET & BASE ===== */
 *,
 *::before,
@@ -13,6 +6,8 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&display=swap');
 
 html {
   scroll-behavior: smooth;
@@ -46,7 +41,7 @@ h2 {
   font-weight: 700;
 }
 
-/* ===== SECTIONS ===== */
+/* ===== SECTIONS (Exact 100vh) ===== */
 .section {
   width: 100vw;
   display: flex;
@@ -63,11 +58,11 @@ h2 {
   padding: 0;
 }
 
-/* ===== HERO & FOOTER CARDS (80px margins on desktop & tablet) ===== */
+/* ===== HEADER & FOOTER CARDS (Fixed 40px margins) ===== */
 .hero-card {
-  width: calc(100% - (var(--card-margin) * 2));
-  height: calc(100% - (var(--card-margin) * 2));
-  margin: var(--card-margin);
+  width: calc(100% - 160px);
+  height: calc(100% - 160px);
+  margin: 80px;
   border-radius: 80px;
   background: #C4B5A8;
   display: flex;
@@ -147,7 +142,7 @@ h2 {
   z-index: 1;
   opacity: 0;
   transform: translate(60px, 60px) scale(0.9);
-  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
+  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s; /* Added 0.4s delay */
 }
 
 .section-footer .hero-card.visible .contact-deco {
@@ -186,16 +181,7 @@ h2 {
   justify-content: center;
   align-items: center;
   width: 100%;
-  padding: 0 var(--page-padding);
-}
-
-/* Align images to outer edges to ensure perfectly symmetric visual margins */
-.content-wrapper > .image-placeholder {
-  justify-self: end;
-}
-
-.content-reverse > .image-placeholder {
-  justify-self: start;
+  padding: 0 40px;
 }
 
 .content-reverse .text-block {
@@ -205,6 +191,7 @@ h2 {
 .content-reverse .image-placeholder {
   grid-column: 1;
   grid-row: 1;
+  /* Ensure it stays in the first row alongside the text */
 }
 
 .text-block {
@@ -239,7 +226,7 @@ h2 {
   justify-content: flex-end;
   position: relative;
   padding-bottom: 120px;
-  min-height: 800px;
+  min-height: 800px; /* Ensure enough height for the portrait */
 }
 
 .team-bg-image {
@@ -247,7 +234,7 @@ h2 {
   top: 0;
   left: 0;
   height: 100%;
-  width: calc(50vw + 80px);
+  width: calc(50vw + 80px); /* Spans exactly from edge to the grid gap start */
   z-index: 1;
 }
 
@@ -255,7 +242,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: right bottom;
+  object-position: right bottom; /* Align him closer to the text block while staying in his area */
   opacity: 0;
   transform: scale(1.1);
   transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -279,6 +266,7 @@ h2 {
 
 .team-text-block {
   grid-column: 2;
+  /* Always in the second column to follow the guide */
   width: 100%;
   text-align: left;
 }
@@ -319,6 +307,7 @@ h2 {
 }
 
 
+
 /* ===== FOOTER SPECIFIC ===== */
 .section-footer .hero-card {
   display: flex;
@@ -334,12 +323,13 @@ h2 {
   justify-content: center;
   width: 100%;
   text-align: left;
-  padding: 0 var(--page-padding);
 }
 
 .footer-container-inner {
   grid-column: 1;
+  /* Always in the first column to follow the guide */
 }
+
 
 .footer-title {
   font-size: clamp(48px, 6vw, 96px);
@@ -407,131 +397,17 @@ h2 {
   transform: translateY(0) scale(1);
 }
 
-
-/* ===== TABLET (800px – 1024px) ===== */
-@media (max-width: 1024px) and (min-width: 801px) {
-  :root {
-    --page-padding: 48px;
-    --card-margin: 80px; /* keep 80px card margin on tablet */
-  }
-
-  /* Content grid: switch to single column for sections */
-  .content-wrapper {
-    grid-template-columns: 1fr;
-    gap: 48px;
-    text-align: left;
-    justify-items: start;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  /* Reset reverse layout overrides */
-  .content-reverse .text-block,
-  .content-reverse .image-placeholder {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  /* Images fill column width */
-  .image-placeholder {
-    width: 100%;
-    max-width: 100%;
-  }
-
-  .image-portrait {
-    max-width: 100%;
-    aspect-ratio: 4 / 3;
-  }
-
-  /* Team Section */
-  .section-team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: auto;
-    min-height: auto;
-    padding: 80px 0;
-  }
-
-  .team-bg-image {
-    position: relative;
-    width: 100%;
-    height: auto;
-    max-width: 680px;
-    padding: 0 var(--page-padding);
-    margin-bottom: 48px;
-    z-index: 2;
-  }
-
-  .team-bg-image img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    object-position: center top;
-    border-radius: 40px;
-  }
-
-  .team-container {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0 var(--page-padding);
-    justify-items: start;
-    max-width: 680px;
-    margin: 0 auto;
-  }
-
-  .team-text-block {
-    grid-column: auto;
-    text-align: left;
-    max-width: 100%;
-  }
-
-  .team-title {
-    margin-bottom: 40px;
-  }
-
-  .team-text-block p {
-    margin-bottom: 40px;
-  }
-
-  /* Footer stays single-column */
-  .footer-container {
-    grid-template-columns: 1fr;
-    gap: 0;
-    text-align: left;
-    justify-items: start;
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 0 var(--page-padding);
-  }
-
-  .footer-container-inner {
-    grid-column: auto;
-  }
-}
-
-
-/* ===== MOBILE (<= 800px) ===== */
+/* ===== RESPONSIVE ===== */
 @media (max-width: 800px) {
-  :root {
-    --page-padding: 32px;
-    --card-margin: 20px;
-  }
-
-  /* General Sections */
+  /* General Sections & Cards */
   .section {
     padding: 80px 0;
   }
 
-  .section-hero,
-  .section-footer {
-    padding: 0;
-  }
-
-  /* Hero card gets smaller radius on mobile */
   .hero-card {
+    margin: 20px;
+    width: calc(100% - 40px);
+    height: calc(100% - 40px);
     border-radius: 48px;
   }
 
@@ -546,15 +422,14 @@ h2 {
     width: 550px;
     bottom: -150px;
     right: -150px;
-    top: auto;
   }
 
   /* Content Sections */
   .content-wrapper {
     grid-template-columns: 1fr;
-    gap: 40px;
-    text-align: left;
-    justify-items: start;
+    gap: 60px;
+    text-align: center;
+    justify-items: center;
   }
 
   .content-reverse .text-block,
@@ -565,12 +440,7 @@ h2 {
 
   .image-placeholder {
     width: 100%;
-    max-width: 100%;
-  }
-
-  .image-portrait {
-    max-width: 100%;
-    aspect-ratio: 4 / 3;
+    max-width: 500px;
   }
 
   /* Team Section */
@@ -588,8 +458,8 @@ h2 {
     position: relative;
     width: 100%;
     height: auto;
-    max-width: 100%;
-    padding: 0 var(--page-padding);
+    max-width: 500px;
+    padding: 0 40px;
     margin-bottom: 40px;
     z-index: 2;
   }
@@ -597,31 +467,35 @@ h2 {
   .team-bg-image img {
     width: 100%;
     height: auto;
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 3 / 4;
     object-fit: cover;
-    object-position: center top;
-    border-radius: 32px;
+    object-position: center;
+    border-radius: 40px;
   }
 
   .team-container {
     grid-template-columns: 1fr;
     gap: 0;
-    padding: 0 var(--page-padding);
-    justify-items: start;
+    padding: 0 40px;
+    justify-items: center;
   }
 
   .team-text-block {
     grid-column: auto;
-    text-align: left;
-    max-width: 100%;
+    text-align: center;
+    max-width: 600px;
   }
 
   .team-title {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
   }
 
   .team-text-block p {
-    margin-bottom: 32px;
+    margin-bottom: 40px;
+  }
+
+  .team-list {
+    align-items: center;
   }
 
   /* Footer / Contact Section */
@@ -632,49 +506,50 @@ h2 {
 
   .section-footer .hero-card {
     height: auto;
-    min-height: calc(100vh - (var(--card-margin) * 2));
-    padding: 80px var(--page-padding);
-    align-items: flex-start;
+    min-height: calc(100vh - 40px);
+    padding: 80px 40px;
   }
 
   .footer-container {
     grid-template-columns: 1fr;
-    gap: 0;
-    text-align: left;
-    justify-items: start;
-    padding: 0;
+    gap: 60px;
+    text-align: center;
+    justify-items: center;
   }
 
   .footer-container-inner {
     grid-column: auto;
-    max-width: 100%;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-info-group {
+    text-align: center;
+  }
+
+  .footer-logo {
+    margin: 40px auto 0 auto;
   }
 
   .contact-deco {
-    width: 340px;
-    bottom: -40px;
-    right: -40px;
+    width: 400px;
+    bottom: -60px;
+    right: -60px;
   }
 }
 
-
-/* ===== SMALL MOBILE (<= 600px) ===== */
 @media (max-width: 600px) {
-  :root {
-    --page-padding: 20px;
-    --card-margin: 16px;
-  }
-
+  /* General Spacing & Cards */
   .section {
     padding: 60px 0;
   }
 
-  .section-hero,
-  .section-footer {
-    padding: 0;
-  }
-
   .hero-card {
+    margin: 16px;
+    width: calc(100% - 32px);
+    height: calc(100% - 32px);
     border-radius: 40px;
   }
 
@@ -694,7 +569,6 @@ h2 {
     width: 320px;
     bottom: -80px;
     right: -80px;
-    top: auto;
   }
 
   .hero-logo {
@@ -707,7 +581,12 @@ h2 {
 
   /* Team Section Spacing & Typography */
   .team-bg-image {
+    padding: 0 20px;
     margin-bottom: 30px;
+  }
+
+  .team-container {
+    padding: 0 20px;
   }
 
   .team-title {
@@ -728,7 +607,12 @@ h2 {
 
   /* Footer / Contact Section */
   .section-footer .hero-card {
+    min-height: calc(100vh - 32px);
     padding: 60px 20px;
+  }
+
+  .footer-container {
+    padding: 0 20px;
   }
 
   .footer-title {
@@ -742,8 +626,8 @@ h2 {
   }
 
   .contact-deco {
-    width: 180px;
-    bottom: -20px;
-    right: -20px;
+    width: 220px;
+    bottom: -30px;
+    right: -30px;
   }
 }
