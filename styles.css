@@ -506,7 +506,7 @@ h2 {
     height: auto;
     max-width: 500px;
     padding: 0 var(--page-padding);
-    margin-bottom: 24px;
+    margin-bottom: 0;
     z-index: 2;
   }
 
