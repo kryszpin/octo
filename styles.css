@@ -443,7 +443,12 @@ h2 {
 
   /* General Spacing & Cards */
   .section {
-    padding: 60px 0;
+    padding: 48px 0;
+  }
+
+  /* Pierwsza sekcja: bez ekstra górnego marginesu (na desktopie 120px) — równo z dołem */
+  #about {
+    padding-top: 48px;
   }
 
   /* Hero i stopka bez paddingu — karta wypełnia ekran z równym marginesem (16px) ze wszystkich stron */
