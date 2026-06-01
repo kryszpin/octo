@@ -431,145 +431,9 @@ h2 {
   }
 }
 
-@media (max-width: 1024px) {
-  /* General Sections & Cards */
-  .section {
-    padding: 80px 0;
-  }
-
-  /* Hero Section Deco */
-  .hero-deco-1 {
-    width: 280px;
-    top: -80px;
-    left: -80px;
-  }
-
-  .hero-deco-2 {
-    width: 550px;
-    bottom: -150px;
-    right: -150px;
-  }
-
-  /* Content Sections */
-  .content-wrapper {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-    justify-items: center;
-  }
-
-  .content-reverse .text-block,
-  .content-reverse .image-placeholder {
-    grid-column: auto;
-    grid-row: auto;
-  }
-
-  .image-placeholder {
-    width: 100%;
-    max-width: 500px;
-  }
-
-  /* Team Section */
-  .section-team {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
-    height: auto;
-    min-height: auto;
-    padding: 80px 0;
-  }
-
-  .team-bg-image {
-    position: relative;
-    width: 100%;
-    height: auto;
-    max-width: 500px;
-    padding: 0 var(--page-padding);
-    margin-bottom: 40px;
-    z-index: 2;
-  }
-
-  .team-bg-image img {
-    width: 100%;
-    height: auto;
-    aspect-ratio: 3 / 4;
-    object-fit: cover;
-    object-position: center;
-    border-radius: 40px;
-  }
-
-  .team-container {
-    grid-template-columns: 1fr;
-    gap: 0;
-    padding: 0 var(--page-padding);
-    justify-items: center;
-  }
-
-  .team-text-block {
-    grid-column: auto;
-    text-align: center;
-    max-width: 600px;
-  }
-
-  .team-title {
-    margin-bottom: 40px;
-  }
-
-  .team-text-block p {
-    margin-bottom: 40px;
-  }
-
-  .team-list {
-    align-items: center;
-  }
-
-  /* Footer / Contact Section */
-  .section-footer {
-    height: auto;
-    min-height: 100vh;
-    min-height: 100dvh;
-  }
-
-  .section-footer .hero-card {
-    height: auto;
-    min-height: calc(100vh - (var(--card-margin) * 2));
-    min-height: calc(100dvh - (var(--card-margin) * 2));
-    padding: 80px var(--page-padding);
-  }
-
-  .footer-container {
-    grid-template-columns: 1fr;
-    gap: 60px;
-    text-align: center;
-    justify-items: center;
-    padding: 0;
-  }
-
-  .footer-container-inner {
-    grid-column: auto;
-    max-width: 550px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  .footer-info-group {
-    text-align: center;
-  }
-
-  .footer-logo {
-    margin: 40px auto 0 auto;
-  }
-
-  .contact-deco {
-    width: 400px;
-    bottom: -60px;
-    right: -60px;
-  }
-}
-
-@media (max-width: 768px) {
+/* Telefon: jedna kolumna i układ mobilny — JEDYNY próg układu (800px).
+   Powyżej (800–1180px) layout jest taki sam jak na desktopie, tylko z mniejszymi fontami. */
+@media (max-width: 800px) {
   :root {
     --page-padding: 20px;
     --card-margin: 16px;
@@ -605,9 +469,66 @@ h2 {
     font-size: 18px;
   }
 
-  /* Team Section Spacing & Typography */
+  /* Content Sections — jedna kolumna */
+  .content-wrapper {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+    justify-items: center;
+  }
+
+  .content-reverse .text-block,
+  .content-reverse .image-placeholder {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .image-placeholder {
+    width: 100%;
+    max-width: 500px;
+  }
+
+  /* Team Section — portret nad tekstem */
+  .section-team {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    height: auto;
+    min-height: auto;
+    padding: 60px 0;
+  }
+
   .team-bg-image {
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    padding: 0 var(--page-padding);
     margin-bottom: 30px;
+    z-index: 2;
+  }
+
+  .team-bg-image img {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 40px;
+  }
+
+  .team-container {
+    grid-template-columns: 1fr;
+    gap: 0;
+    padding: 0 var(--page-padding);
+    justify-items: center;
+  }
+
+  .team-text-block {
+    grid-column: auto;
+    text-align: center;
+    max-width: 600px;
   }
 
   .team-title {
@@ -618,13 +539,50 @@ h2 {
     margin-bottom: 30px;
   }
 
+  .team-list {
+    align-items: center;
+  }
+
   /* Footer / Contact Section */
+  .section-footer {
+    height: auto;
+    min-height: 100vh;
+    min-height: 100dvh;
+  }
+
   .section-footer .hero-card {
+    height: auto;
+    min-height: calc(100vh - (var(--card-margin) * 2));
+    min-height: calc(100dvh - (var(--card-margin) * 2));
     padding: 60px 20px;
+  }
+
+  .footer-container {
+    grid-template-columns: 1fr;
+    gap: 60px;
+    text-align: center;
+    justify-items: center;
+    padding: 0;
+  }
+
+  .footer-container-inner {
+    grid-column: auto;
+    max-width: 550px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .footer-info-group {
+    text-align: center;
   }
 
   .footer-title {
     margin-bottom: 40px;
+  }
+
+  .footer-logo {
+    margin: 40px auto 0 auto;
   }
 
   .contact-deco {
