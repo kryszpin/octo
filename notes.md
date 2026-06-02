@@ -44,3 +44,32 @@ Witryna internetowa dla **OCTO Fabrics** (dostawca tkanin obiciowych). Strona op
    * **Ekrany laptopów (1025px - 1440px)**: Sztywne dwukolumnowe siatki zostały zmienione na elastyczne kolumny (`minmax(0, 550px)`) z płynnym odstępem `gap: clamp(40px, 8vw, 160px);`, co zapobiega poziomemu przewijaniu.
    * **Tablety (max-width: 1024px)**: Przebudowa na układy jednokolumnowe. Portret zespołu został zmieniony z absolutnego tła na relatywną kartę portretową nad tekstem. Stopka unika sztywnego `100vh`, aby dopasować się do zawartości bez obcinania danych kontaktowych.
    * **Telefony komórkowe (max-width: 768px)**: Zredukowanie marginesów kart do `16px`, przeskalowanie dekoracji w Hero (kula `160px`, sześcian `320px`), optymalizacja fontów (`h2` skalowane elastycznie za pomocą `clamp`) oraz zmniejszenie ozdoby stopki do `220px`.
+
+> ⚠️ **Uwaga:** powyższy opis responsywności (pkt 4) jest historyczny. Breakpointy zostały później przebudowane — patrz sekcja niżej i komentarze w `styles.css`.
+
+---
+
+## 🔭 Aktualny stan responsywności (po przebudowie)
+
+- **> 1180px** — pełny desktop (2 kolumny).
+- **800–1180px** — ten sam układ co desktop, tylko mniejsze fonty (blok `@media (max-width: 1180px)` steruje wyłącznie typografią).
+- **≤ 800px** — telefon: jedna kolumna, tryb mobilny (blok `@media (max-width: 800px)` — jedyny próg układu).
+- **Dekoracje hero/stopki** skalują się płynnie przez `clamp()` (telefon@800px → desktop@1180px), bez skoków.
+- **Telefon — rytm pionowy:** wszystkie odstępy między blokami treści = **48px** (padding sekcji 24/24 → 48 między sekcjami; `content-wrapper gap: 48`; `#about padding-top: 32` bo hero nie ma dolnego paddingu, tylko 16px marginesu karty).
+
+---
+
+## 📋 Do zrobienia później
+
+### 1. Kompresja / optymalizacja grafik (ODŁOŻONE — zrobić na końcu)
+Grafiki w `assets/` są ciężkie (`img-*.jpg`, `mirek.jpg` ~1,3–1,8 MB każda). Wpływa to na czas ładowania (LCP) i SEO.
+- **Plan:** konwersja na **WebP** (spadek ~70–90%) + ewentualnie wersje responsywne (`srcset`).
+- Po podmianie dodać do `<img>`: `loading="lazy"` (poza hero) oraz atrybuty `width`/`height` (eliminują CLS — skakanie layoutu).
+- Można użyć `cwebp` albo `sips` (wbudowane w macOS). Claude przygotuje komendy, gdy ruszymy.
+- **Uwaga przy `mirek.jpg`:** rozważyć przycięcie zdjęcia u źródła (mniej białego studyjnego tła nad/pod sylwetką) — wtedy CSS nie musi kombinować z kadrowaniem.
+
+### 2. Grafiki hero i stopki (W TOKU — po stronie właściciela)
+Andrzej dopracowuje grafiki dekoracyjne w hero i footer (dochodzą dodatkowe informacje). Po dostarczeniu — kontynuujemy dopasowanie ich zachowania/pozycji.
+
+### 3. Token GitHub `neat-proto-deploy` (opcjonalnie)
+Wciąż aktywny, współdzielony z innym projektem. Do ewentualnej rotacji „na spokojnie" (nie pilne — wyciek był tylko lokalny, nigdy nie trafił do repo).
