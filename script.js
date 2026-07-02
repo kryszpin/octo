@@ -47,14 +47,17 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = [];
 
-  /* Kotwiczenie pionowe: top liczony względem sekcji (data-anchor + data-ratio),
+  /* Kotwiczenie pionowe: top liczony względem sekcji (data-anchor + zmienna CSS --y),
      dzięki czemu obiekt trzyma się swojej sekcji także po reflow na mobile.
-     Zapamiętujemy środek obiektu w układzie dokumentu do obliczeń parallax. */
+     Pozycja (--y) i tempo (--speed) pochodzą z konfiguracji na górze styles.css,
+     więc mają osobne wartości desktop/mobile (breakpoint 800px). Odczyt przy layout(),
+     który odpala się też po resize. Zapamiętujemy środek obiektu do obliczeń parallax. */
   function layout() {
     items = floaties.map(function (el) {
+      var cs = getComputedStyle(el);
       var anchor = document.getElementById(el.dataset.anchor);
-      var ratio = parseFloat(el.dataset.ratio || '0.5');
-      var speed = parseFloat(el.dataset.speed || '0');
+      var ratio = parseFloat(cs.getPropertyValue('--y')) || 0;
+      var speed = parseFloat(cs.getPropertyValue('--speed')) || 0;
       var top = anchor ? anchor.offsetTop + ratio * anchor.offsetHeight : 0;
       el.style.top = top + 'px';
       return { el: el, speed: speed, center: top + el.offsetHeight / 2 };

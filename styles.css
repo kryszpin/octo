@@ -3,6 +3,77 @@
   --card-margin: 40px;
 }
 
+/* ============================================================================
+   FLOATIES + DECO — KONFIGURACJA (edytuj TU)
+   Trzy breakpointy, każdy ustawiany niezależnie:
+     DESKTOP  > 1180px      (blok :root poniżej)
+     TABLET   ≤ 1180px      (@media max-width:1180)
+     TELEFON  ≤ 800px       (@media max-width:800)
+
+   FLOATIES (pływające kształty, parallax) — silnik: .floaty / .f-* + script.js:
+     *-x      poziom = LEWA krawędź na X% szerokości okna (minus = za lewą, duże % = za prawą)
+     *-y      pion w sekcji: 0 = góra, 1 = dół (można <0 / >1)
+     *-speed  tempo parallax (0 = brak, minus = „pod prąd")
+     --fl-scale  mnożnik rozmiaru + cienia floaties
+     (kształt→sekcja: data-anchor w index.html; rozmiar bazowy 1:1 z Figmy jest w .f-*)
+
+   DECO (dekoracje hero/stopki) — silnik: .hero-deco-1 / .hero-deco-2 / .contact-deco:
+     hero-deco-1  kotwica GÓRA-LEWO   → --hd1-top  / --hd1-left
+     hero-deco-2  kotwica GÓRA-PRAWO  → --hd2-top  / --hd2-right
+     contact-deco kotwica DÓŁ-PRAWO   → --cd-bottom / --cd-right
+     *-scale      mnożnik rozmiaru (1 = wymiar z Figmy: hd1 486 / hd2 950 / cd 860 px)
+     Offsety w px; minus = wystaje poza kartę (karta ma overflow:hidden → „wygląda zza rogu").
+   ============================================================================ */
+
+/* ---------- DESKTOP (>1180px) ---------- */
+:root {
+  /* floaties */
+  --fl-scale: 1;
+  --fl-triangle-x: 8%;   --fl-triangle-y: 0.70;  --fl-triangle-speed: 0.16;
+  --fl-donut-x:    60%;  --fl-donut-y:    0.64;  --fl-donut-speed:   -0.12;
+  --fl-pillow-x:   4%;   --fl-pillow-y:   0.70;  --fl-pillow-speed:   0.16;
+  --fl-sphere-x:   74%;  --fl-sphere-y:   0.64;  --fl-sphere-speed:  -0.12;
+  --fl-cube-x:     42%;  --fl-cube-y:    -0.04;  --fl-cube-speed:     0.16;
+  /* deco */
+  --hd1-scale: 1;   --hd1-top: -172px;  --hd1-left:  -172px;
+  --hd2-scale: 1;   --hd2-top: -252px;  --hd2-right: -360px;
+  --cd-scale:  1;   --cd-bottom: 0px;   --cd-right:  0px;
+}
+
+/* ---------- TABLET (≤1180px) ---------- */
+@media (max-width: 1180px) {
+  :root {
+    /* floaties (na start jak desktop — dostrój) */
+    --fl-scale: 1;
+    --fl-triangle-x: 8%;   --fl-triangle-y: 0.80;  --fl-triangle-speed: 0.16;
+    --fl-donut-x:    60%;  --fl-donut-y:    0.74;  --fl-donut-speed:   -0.12;
+    --fl-pillow-x:   4%;   --fl-pillow-y:   0.82;  --fl-pillow-speed:   0.16;
+    --fl-sphere-x:   74%;  --fl-sphere-y:   0.76;  --fl-sphere-speed:  -0.12;
+    --fl-cube-x:     54%;  --fl-cube-y:    -0.04;  --fl-cube-speed:     0.16;
+    /* deco */
+    --hd1-scale: 0.67;  --hd1-top: -100px;  --hd1-left:  -100px;
+    --hd2-scale: 0.67;  --hd2-top: -240px;  --hd2-right: -210px;
+    --cd-scale:  0.67;  --cd-bottom: -15px; --cd-right:  -15px;
+  }
+}
+
+/* ---------- TELEFON (≤800px) ---------- */
+@media (max-width: 800px) {
+  :root {
+    /* floaties */
+    --fl-scale: 1.5;
+    --fl-triangle-x: 12%;   --fl-triangle-y: 0.80;  --fl-triangle-speed: 0.16;
+    --fl-donut-x:    54%;   --fl-donut-y:    0.86;  --fl-donut-speed:   -0.12;
+    --fl-pillow-x:   -12%;  --fl-pillow-y:   0.92;  --fl-pillow-speed:   0.16;
+    --fl-sphere-x:   58%;   --fl-sphere-y:   0.92;  --fl-sphere-speed:  -0.12;
+    --fl-cube-x:     -12%;  --fl-cube-y:     0.00;  --fl-cube-speed:     0.08;
+    /* deco */
+    --hd1-scale: 0.30;  --hd1-top: -50px;   --hd1-left:  -50px;
+    --hd2-scale: 0.40;  --hd2-top: -120px;  --hd2-right: -220px;
+    --cd-scale:  0.30;  --cd-bottom: -30px; --cd-right:  -30px;
+  }
+}
+
 /* ===== RESET & BASE ===== */
 *,
 *::before,
@@ -97,13 +168,14 @@ h2 {
   to { opacity: 1; }
 }
 
-/* Dekoracje hero/stopki skalują się płynnie: rozmiar telefonowy przy <=800px,
-   pełny desktopowy przy >=1180px, liniowo pomiędzy (clamp zamiast progów). */
+/* Dekoracje hero/stopki — pozycja + rozmiar sterowane z KONFIGURACJI na górze pliku
+   (3 breakpointy). hd1: kotwica góra-lewo, hd2: góra-prawo, contact: dół-prawo.
+   Rozmiar = wymiar z Figmy (486/950/860) × --*-scale. Animacje wejścia bez zmian. */
 .hero-deco-1 {
   position: absolute;
-  top: clamp(-160px, 212.6px - 31.58vw, -40px);
-  left: clamp(-160px, 212.6px - 31.58vw, -40px);
-  width: clamp(160px, 85.79vw - 526.3px, 486px);
+  top: var(--hd1-top);
+  left: var(--hd1-left);
+  width: calc(486px * var(--hd1-scale));
   height: auto;
   filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
   z-index: 1;
@@ -121,9 +193,9 @@ h2 {
 
 .hero-deco-2 {
   position: absolute;
-  top: -240px;
-  right: clamp(-340px, 467.4px - 68.42vw, -80px);
-  width: clamp(320px, 165.79vw - 1006.3px, 950px);
+  top: var(--hd2-top);
+  right: var(--hd2-right);
+  width: calc(950px * var(--hd2-scale));
   height: auto;
   filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
   z-index: 1;
@@ -141,9 +213,9 @@ h2 {
 
 .contact-deco {
   position: absolute;
-  bottom: clamp(-30px, 7.89vw - 93.16px, 0px);
-  right: clamp(-30px, 7.89vw - 93.16px, 0px);
-  width: clamp(220px, 168.42vw - 1127.4px, 860px);
+  bottom: var(--cd-bottom);
+  right: var(--cd-right);
+  width: calc(860px * var(--cd-scale));
   height: auto;
   filter: drop-shadow(80px 120px 120px rgba(33, 32, 28, 0.32));
   z-index: 1;
@@ -333,6 +405,8 @@ h2 {
   width: 100%;
   text-align: left;
   padding: 0 var(--page-padding);
+  position: relative;
+  z-index: 2; /* treść nad contact-deco (z-index:1), żeby grafika nie zasłaniała logo/tekstu */
 }
 
 .footer-container-inner {
@@ -407,11 +481,11 @@ h2 {
   transform: translateY(0) scale(1);
 }
 
-/* ===== FLOATING PARALLAX OBJECTS (warstwa nad całą stroną) =====
+/* ===== FLOATING PARALLAX OBJECTS — SILNIK (konfiguracja jest na górze pliku) =====
    Osobna nakładka (NIE dzieci .section, bo .section ma overflow:hidden i ucinałby
    obiekty wystające poza krawędź). Pozycja pionowa (top) liczona w JS względem sekcji
-   (data-anchor + data-ratio) -> responsywne po reflow. Ruch parallax: transform translateY
-   sterowany jedną pętlą rAF w script.js (data-speed). pointer-events:none, żeby nie blokować
+   (data-anchor + zmienna --y) -> responsywne po reflow. Ruch parallax: transform translateY
+   jedną pętlą rAF w script.js (zmienna --speed). pointer-events:none, żeby nie blokować
    klików w treść pod spodem. */
 .floaties {
   position: absolute;
@@ -426,19 +500,21 @@ h2 {
 .floaty {
   position: absolute;
   height: auto;
-  /* Figma Drop shadow: X120 Y180 Blur180, #21201C @ 28%, cień po kształcie (alpha) */
-  filter: drop-shadow(120px 180px 180px rgba(33, 32, 28, 0.28));
+  /* Figma Drop shadow (X120 Y180 Blur180, #21201C @ 28%) w klatce 1920px -> skalowane tym
+     samym vw co rozmiar obiektu, żeby cień był proporcjonalny na każdej szerokości.
+     120/1920=6.25vw, 180/1920=9.375vw. Cień po kształcie (alpha) = drop-shadow. */
+  filter: drop-shadow(calc(6.25vw * var(--fl-scale)) calc(9.375vw * var(--fl-scale)) calc(9.375vw * var(--fl-scale)) rgba(33, 32, 28, 0.6));
   will-change: transform;
   pointer-events: none;
 }
 
-/* Poziome pozycje + rozmiary (szkic do dostrojenia). Skala płynna clamp: telefon -> desktop.
-   Rozmiary 2x względem assetów 1x (grafiki wyeksportowane w 1x). */
-.f-triangle { width: clamp(180px, 30vw, 400px); left: 3%; }
-.f-donut    { width: clamp(180px, 30vw, 400px); right: 30%; }
-.f-pillow   { width: clamp(240px, 38vw, 520px); left: 2%; }
-.f-sphere   { width: clamp(180px, 28vw, 380px); right: 26%; }
-.f-cube     { width: clamp(180px, 28vw, 380px); right: 28%; }
+/* Rozmiar 1:1 z Figmy: szer_obiektu/1920 * 100vw, × globalny --fl-scale (proporcje zablokowane).
+   Pozycja pozioma (left) i pionowa (--y) + tempo (--speed) biorą się z konfiguracji na górze. */
+.f-triangle { width: calc(23.02vw * var(--fl-scale)); left: var(--fl-triangle-x); --y: var(--fl-triangle-y); --speed: var(--fl-triangle-speed); } /* 442/1920 */
+.f-donut    { width: calc(18.96vw * var(--fl-scale)); left: var(--fl-donut-x);    --y: var(--fl-donut-y);    --speed: var(--fl-donut-speed); }    /* 364/1920 */
+.f-pillow   { width: calc(25.52vw * var(--fl-scale)); left: var(--fl-pillow-x);   --y: var(--fl-pillow-y);   --speed: var(--fl-pillow-speed); }   /* 490/1920 */
+.f-sphere   { width: calc(17.40vw * var(--fl-scale)); left: var(--fl-sphere-x);   --y: var(--fl-sphere-y);   --speed: var(--fl-sphere-speed); }   /* 334/1920 */
+.f-cube     { width: calc(18.44vw * var(--fl-scale)); left: var(--fl-cube-x);     --y: var(--fl-cube-y);     --speed: var(--fl-cube-speed); }     /* 354/1920 */
 
 /* ===== RESPONSIVE ===== */
 
@@ -582,7 +658,7 @@ h2 {
   /* Footer / Contact — wypełnia ekran jak na desktopie (height = viewport - marginesy).
      Hero (.section-hero) dziedziczy 100dvh z reguł bazowych. */
   .section-footer .hero-card {
-    padding: 60px 20px;
+    padding: 44px 20px;
   }
 
   .footer-container {
@@ -605,12 +681,18 @@ h2 {
     text-align: center;
   }
 
+  /* Kompaktowo na telefonie: mniejsze przerwy, żeby logo wyszło wyżej (nad contact-deco) */
   .footer-title {
-    margin-bottom: 40px;
+    margin-bottom: 28px;
+  }
+
+  .footer-content-grid {
+    gap: 20px;
+    margin-bottom: 28px;
   }
 
   .footer-logo {
-    margin: 40px auto 0 auto;
+    margin: 28px auto 0 auto;
   }
 }
 
