@@ -57,6 +57,17 @@
 
 <body>
 
+  <!-- Pływające obiekty (parallax) nad całą stroną. aria-hidden: czysta dekoracja.
+       Pozycję pionową liczy script.js z data-anchor (id sekcji) + data-ratio;
+       tempo parallax = data-speed (ujemne = wolniej/w górę). -->
+  <div class="floaties" aria-hidden="true">
+    <img src="assets/deco-1-triangle.png" alt="" class="floaty f-triangle" data-anchor="hero"     data-ratio="0.78" data-speed="0.10">
+    <img src="assets/deco-2-donut.png"    alt="" class="floaty f-donut"    data-anchor="about"    data-ratio="0.62" data-speed="-0.08">
+    <img src="assets/deco-3-pillow.png"   alt="" class="floaty f-pillow"   data-anchor="services" data-ratio="0.95" data-speed="0.12">
+    <img src="assets/deco-4-sphere.png"   alt="" class="floaty f-sphere"   data-anchor="values"   data-ratio="0.60" data-speed="-0.10">
+    <img src="assets/deco-5-cube.png"     alt="" class="floaty f-cube"     data-anchor="contact"  data-ratio="0.06" data-speed="0.10">
+  </div>
+
   <!-- Section 0: Hero -->
   <section class="section section-hero" id="hero">
     <div class="hero-card">

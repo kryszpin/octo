@@ -23,6 +23,7 @@ body {
   color: #000000;
   overflow-x: hidden;
   line-height: 1.5;
+  position: relative; /* punkt odniesienia dla warstwy .floaties (pozycje w układzie dokumentu) */
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -68,7 +69,7 @@ h2 {
   height: calc(100% - (var(--card-margin) * 2));
   margin: var(--card-margin);
   border-radius: 80px;
-  background: #C4B5A8;
+  background: #CBAF9B;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -406,6 +407,39 @@ h2 {
   transform: translateY(0) scale(1);
 }
 
+/* ===== FLOATING PARALLAX OBJECTS (warstwa nad całą stroną) =====
+   Osobna nakładka (NIE dzieci .section, bo .section ma overflow:hidden i ucinałby
+   obiekty wystające poza krawędź). Pozycja pionowa (top) liczona w JS względem sekcji
+   (data-anchor + data-ratio) -> responsywne po reflow. Ruch parallax: transform translateY
+   sterowany jedną pętlą rAF w script.js (data-speed). pointer-events:none, żeby nie blokować
+   klików w treść pod spodem. */
+.floaties {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0; /* tylko kotwica w (0,0) dokumentu; dzieci wystają poza (overflow widoczny) */
+  pointer-events: none;
+  z-index: 20;
+}
+
+.floaty {
+  position: absolute;
+  height: auto;
+  /* Figma Drop shadow: X120 Y180 Blur180, #21201C @ 28%, cień po kształcie (alpha) */
+  filter: drop-shadow(120px 180px 180px rgba(33, 32, 28, 0.28));
+  will-change: transform;
+  pointer-events: none;
+}
+
+/* Poziome pozycje + rozmiary (szkic do dostrojenia). Skala płynna clamp: telefon -> desktop.
+   Rozmiary 2x względem assetów 1x (grafiki wyeksportowane w 1x). */
+.f-triangle { width: clamp(180px, 30vw, 400px); left: 3%; }
+.f-donut    { width: clamp(180px, 30vw, 400px); right: 30%; }
+.f-pillow   { width: clamp(240px, 38vw, 520px); left: 2%; }
+.f-sphere   { width: clamp(180px, 28vw, 380px); right: 26%; }
+.f-cube     { width: clamp(180px, 28vw, 380px); right: 28%; }
+
 /* ===== RESPONSIVE ===== */
 
 /* Fonty: zmniejszone od 1180px w dół (te same wartości aż do telefonu).
@@ -606,6 +640,11 @@ h2 {
   transform: translate(0, 0) scale(1);
 }
 
+/* Bez JS pozycje floaties nie są liczone (top ustawia skrypt) — ukryj, to tylko dekoracja */
+.no-js .floaties {
+  display: none;
+}
+
 /* Szanuj ustawienie systemowe "ogranicz ruch" — wyłącz animacje, pokaż treść */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -623,6 +662,7 @@ h2 {
   .hero-deco-1,
   .hero-deco-2,
   .contact-deco,
+  .floaty,
   .section-team .team-bg-image img {
     opacity: 1 !important;
     transform: none !important;
