@@ -4,28 +4,18 @@
 }
 
 /* ============================================================================
-   FLOATIES + DECO — KONFIGURACJA (edytuj TU)
-   Trzy breakpointy, każdy ustawiany niezależnie:
-     DESKTOP  > 1180px      (blok :root poniżej)
-     TABLET   ≤ 1180px      (@media max-width:1180)
-     TELEFON  ≤ 800px       (@media max-width:800)
+   FLOATIES + DECO — KONFIGURACJA (edytuj tu; 3 breakpointy: desktop >1180,
+   tablet ≤1180, telefon ≤800 — każdy ustawiany niezależnie).
 
-   FLOATIES (pływające kształty, parallax) — silnik: .floaty / .f-* + script.js:
-     *-x      poziom = LEWA krawędź na X% szerokości okna (minus = za lewą, duże % = za prawą)
-     *-y      pion w sekcji: 0 = góra, 1 = dół (można <0 / >1)
-     *-speed  tempo parallax (0 = brak, minus = „pod prąd")
-     --fl-scale  mnożnik rozmiaru + cienia floaties
-     (kształt→sekcja: data-anchor w index.html; rozmiar bazowy 1:1 z Figmy jest w .f-*)
+   Floaties (parallax): *-x = lewa krawędź w % szer. okna (minus = za ekranem);
+   *-y = pion w sekcji 0..1 (sekcja: data-anchor w HTML); *-speed = tempo
+   (minus = „pod prąd"); --fl-scale = mnożnik rozmiaru + cienia.
 
-   DECO (dekoracje hero/stopki) — silnik: .hero-deco-1 / .hero-deco-2 / .contact-deco:
-     hero-deco-1  kotwica GÓRA-LEWO   → --hd1-top  / --hd1-left
-     hero-deco-2  kotwica GÓRA-PRAWO  → --hd2-top  / --hd2-right
-     contact-deco kotwica DÓŁ-PRAWO   → --cd-bottom / --cd-right
-     *-scale      mnożnik rozmiaru (1 = wymiar z Figmy: hd1 486 / hd2 950 / cd 860 px)
-     Offsety w px; minus = wystaje poza kartę (karta ma overflow:hidden → „wygląda zza rogu").
+   Deco: hd1 = góra-lewo, hd2 = góra-prawo, cd = dół-prawo; offsety w px
+   (minus = wystaje za kartę); *-scale: 1 = wymiar z Figmy (486/950/860 px).
    ============================================================================ */
 
-/* ---------- DESKTOP (>1180px) ---------- */
+/* DESKTOP (>1180px) */
 :root {
   /* floaties */
   --fl-scale: 1;
@@ -40,10 +30,10 @@
   --cd-scale:  1;   --cd-bottom: 0px;   --cd-right:  0px;
 }
 
-/* ---------- TABLET (≤1180px) ---------- */
+/* TABLET (≤1180px) */
 @media (max-width: 1180px) {
   :root {
-    /* floaties (na start jak desktop — dostrój) */
+    /* floaties */
     --fl-scale: 1;
     --fl-triangle-x: 8%;   --fl-triangle-y: 0.80;  --fl-triangle-speed: 0.16;
     --fl-donut-x:    60%;  --fl-donut-y:    0.74;  --fl-donut-speed:   -0.12;
@@ -57,7 +47,7 @@
   }
 }
 
-/* ---------- TELEFON (≤800px) ---------- */
+/* TELEFON (≤800px) */
 @media (max-width: 800px) {
   :root {
     /* floaties */
@@ -94,7 +84,7 @@ body {
   color: #000000;
   overflow-x: hidden;
   line-height: 1.5;
-  position: relative; /* punkt odniesienia dla warstwy .floaties (pozycje w układzie dokumentu) */
+  position: relative; /* kotwica dla .floaties */
 }
 
 /* ===== TYPOGRAPHY ===== */
@@ -116,7 +106,7 @@ h2 {
   font-weight: 700;
 }
 
-/* ===== SECTIONS (Exact 100vh) ===== */
+/* ===== SECTIONS ===== */
 .section {
   width: 100vw;
   display: flex;
@@ -134,7 +124,7 @@ h2 {
   padding: 0;
 }
 
-/* ===== HEADER & FOOTER CARDS (Fixed 40px margins) ===== */
+/* ===== HERO / FOOTER CARDS ===== */
 .hero-card {
   width: calc(100% - (var(--card-margin) * 2));
   height: calc(100% - (var(--card-margin) * 2));
@@ -168,9 +158,7 @@ h2 {
   to { opacity: 1; }
 }
 
-/* Dekoracje hero/stopki — pozycja + rozmiar sterowane z KONFIGURACJI na górze pliku
-   (3 breakpointy). hd1: kotwica góra-lewo, hd2: góra-prawo, contact: dół-prawo.
-   Rozmiar = wymiar z Figmy (486/950/860) × --*-scale. Animacje wejścia bez zmian. */
+/* Dekoracje hero/stopki — pozycja i rozmiar z konfiguracji na górze pliku. */
 .hero-deco-1 {
   position: absolute;
   top: var(--hd1-top);
@@ -181,14 +169,7 @@ h2 {
   z-index: 1;
   opacity: 0;
   transform: translate(-150px, -150px) scale(0.75);
-  animation: flyInLeft 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
-}
-
-@keyframes flyInLeft {
-  to {
-    opacity: 1;
-    transform: translate(0, 0) scale(1);
-  }
+  animation: flyIn 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
 }
 
 .hero-deco-2 {
@@ -201,10 +182,11 @@ h2 {
   z-index: 1;
   opacity: 0;
   transform: translate(150px, 150px) scale(0.75);
-  animation: flyInRight 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+  animation: flyIn 2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
 }
 
-@keyframes flyInRight {
+/* Wspólny cel animacji wejścia deco (start = transform elementu) */
+@keyframes flyIn {
   to {
     opacity: 1;
     transform: translate(0, 0) scale(1);
@@ -221,7 +203,7 @@ h2 {
   z-index: 1;
   opacity: 0;
   transform: translate(60px, 60px) scale(0.9);
-  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s; /* Added 0.4s delay */
+  transition: all 1.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s;
 }
 
 .section-footer .hero-card.visible .contact-deco {
@@ -245,7 +227,10 @@ h2 {
 
 
 /* ===== CONTENT WRAPPER ===== */
-.content-wrapper {
+/* Wspólny grid 2-kolumnowy wszystkich sekcji treści (content/team/footer) */
+.content-wrapper,
+.team-container,
+.footer-container {
   display: grid;
   grid-template-columns: minmax(0, 550px) minmax(0, 550px);
   gap: clamp(40px, 8vw, 160px);
@@ -255,7 +240,7 @@ h2 {
   padding: 0 var(--page-padding);
 }
 
-/* Align images to outer edges to ensure perfectly symmetric visual margins */
+/* Zdjęcia do zewnętrznych krawędzi — symetryczne marginesy wizualne */
 .content-wrapper > .image-placeholder {
   justify-self: end;
 }
@@ -271,7 +256,6 @@ h2 {
 .content-reverse .image-placeholder {
   grid-column: 1;
   grid-row: 1;
-  /* Ensure it stays in the first row alongside the text */
 }
 
 .text-block {
@@ -306,7 +290,7 @@ h2 {
   justify-content: flex-end;
   position: relative;
   padding-bottom: 120px;
-  min-height: 800px; /* Ensure enough height for the portrait */
+  min-height: 800px; /* miejsce na portret */
 }
 
 .team-bg-image {
@@ -314,7 +298,7 @@ h2 {
   top: 0;
   left: 0;
   height: 100%;
-  width: calc(50vw + 80px); /* Spans exactly from edge to the grid gap start */
+  width: calc(50vw + 80px); /* od krawędzi do początku gapu grida */
   z-index: 1;
 }
 
@@ -322,7 +306,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  object-position: right center; /* Wyśrodkowany w pionie obok tekstu (zamiast przyklejony do dołu) */
+  object-position: right center;
   opacity: 0;
   transform: scale(1.1);
   transition: opacity 1.5s ease-out, transform 2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -334,20 +318,12 @@ h2 {
 }
 
 .team-container {
-  display: grid;
-  grid-template-columns: minmax(0, 550px) minmax(0, 550px);
-  gap: clamp(40px, 8vw, 160px);
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  padding: 0 var(--page-padding);
   position: relative;
   z-index: 2;
 }
 
 .team-text-block {
   grid-column: 2;
-  /* Always in the second column to follow the guide */
   width: 100%;
   text-align: left;
 }
@@ -398,20 +374,13 @@ h2 {
 }
 
 .footer-container {
-  display: grid;
-  grid-template-columns: minmax(0, 550px) minmax(0, 550px);
-  gap: clamp(40px, 8vw, 160px);
-  justify-content: center;
-  width: 100%;
   text-align: left;
-  padding: 0 var(--page-padding);
   position: relative;
-  z-index: 2; /* treść nad contact-deco (z-index:1), żeby grafika nie zasłaniała logo/tekstu */
+  z-index: 2; /* treść nad contact-deco (z-index:1) */
 }
 
 .footer-container-inner {
   grid-column: 1;
-  /* Always in the first column to follow the guide */
 }
 
 
@@ -448,8 +417,6 @@ h2 {
 
 .footer-logo {
   width: 150px;
-  opacity: 1;
-  margin: 0;
 }
 
 .logo-footer {
@@ -481,35 +448,29 @@ h2 {
   transform: translateY(0) scale(1);
 }
 
-/* ===== FLOATING PARALLAX OBJECTS — SILNIK (konfiguracja jest na górze pliku) =====
-   Osobna nakładka (NIE dzieci .section, bo .section ma overflow:hidden i ucinałby
-   obiekty wystające poza krawędź). Pozycja pionowa (top) liczona w JS względem sekcji
-   (data-anchor + zmienna --y) -> responsywne po reflow. Ruch parallax: transform translateY
-   jedną pętlą rAF w script.js (zmienna --speed). pointer-events:none, żeby nie blokować
-   klików w treść pod spodem. */
+/* ===== FLOATIES — SILNIK (konfiguracja na górze pliku) =====
+   Nakładka nad stroną (nie w .section — tamten overflow:hidden by ucinał).
+   top liczy script.js (data-anchor + --y); parallax = translateY w pętli rAF (--speed). */
 .floaties {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
-  height: 0; /* tylko kotwica w (0,0) dokumentu; dzieci wystają poza (overflow widoczny) */
-  pointer-events: none;
+  height: 0; /* sama kotwica; dzieci wystają */
+  pointer-events: none; /* nie blokuj kliknięć w treść */
   z-index: 20;
 }
 
 .floaty {
   position: absolute;
   height: auto;
-  /* Figma Drop shadow (X120 Y180 Blur180, #21201C @ 28%) w klatce 1920px -> skalowane tym
-     samym vw co rozmiar obiektu, żeby cień był proporcjonalny na każdej szerokości.
-     120/1920=6.25vw, 180/1920=9.375vw. Cień po kształcie (alpha) = drop-shadow. */
+  /* Cień z Figmy (120/180/180 @ klatka 1920) skalowany vw jak rozmiar */
   filter: drop-shadow(calc(6.25vw * var(--fl-scale)) calc(9.375vw * var(--fl-scale)) calc(9.375vw * var(--fl-scale)) rgba(33, 32, 28, 0.6));
   will-change: transform;
   pointer-events: none;
 }
 
-/* Rozmiar 1:1 z Figmy: szer_obiektu/1920 * 100vw, × globalny --fl-scale (proporcje zablokowane).
-   Pozycja pozioma (left) i pionowa (--y) + tempo (--speed) biorą się z konfiguracji na górze. */
+/* Rozmiar = szer. z Figmy / 1920 × 100vw × --fl-scale (proporcje stałe) */
 .f-triangle { width: calc(23.02vw * var(--fl-scale)); left: var(--fl-triangle-x); --y: var(--fl-triangle-y); --speed: var(--fl-triangle-speed); } /* 442/1920 */
 .f-donut    { width: calc(18.96vw * var(--fl-scale)); left: var(--fl-donut-x);    --y: var(--fl-donut-y);    --speed: var(--fl-donut-speed); }    /* 364/1920 */
 .f-pillow   { width: calc(25.52vw * var(--fl-scale)); left: var(--fl-pillow-x);   --y: var(--fl-pillow-y);   --speed: var(--fl-pillow-speed); }   /* 490/1920 */
@@ -518,8 +479,7 @@ h2 {
 
 /* ===== RESPONSIVE ===== */
 
-/* Fonty: zmniejszone od 1180px w dół (te same wartości aż do telefonu).
-   Układ pozostaje bez zmian — tu sterujemy WYŁĄCZNIE typografią. */
+/* ≤1180px: WYŁĄCZNIE typografia (układ bez zmian aż do 800px) */
 @media (max-width: 1180px) {
   h2 {
     font-size: clamp(32px, 10vw, 56px);
@@ -543,35 +503,27 @@ h2 {
   }
 }
 
-/* Telefon: jedna kolumna i układ mobilny — JEDYNY próg układu (800px).
-   Powyżej (800–1180px) layout jest taki sam jak na desktopie, tylko z mniejszymi fontami. */
+/* ≤800px: telefon — JEDYNY próg zmiany układu (1 kolumna).
+   Rytm pionowy: każdy odstęp między blokami = 48px (24+24 padding sekcji;
+   #about 32 + 16 marginesu karty hero = 48; gap content-wrapper = 48). */
 @media (max-width: 800px) {
   :root {
     --page-padding: 20px;
     --card-margin: 16px;
   }
 
-  /* General Spacing & Cards */
   .section {
     padding: 24px 0;
   }
 
-  /* Pierwsza sekcja: po hero (0 paddingu na dole) — 32px + 16px marginesu karty hero = 48px odstępu */
   #about {
     padding-top: 32px;
-  }
-
-  /* Hero i stopka bez paddingu — karta wypełnia ekran z równym marginesem (16px) ze wszystkich stron */
-  .section-hero,
-  .section-footer {
-    padding: 0;
   }
 
   .hero-card {
     border-radius: 40px;
   }
 
-  /* Hero Logo (dekoracje skalują się płynnie przez clamp w regułach bazowych) */
   .hero-logo {
     width: clamp(160px, 45vw, 280px);
   }
@@ -580,7 +532,6 @@ h2 {
     font-size: 18px;
   }
 
-  /* Content Sections — jedna kolumna; odstęp tekst<->zdjęcie 48px (jak między sekcjami) */
   .content-wrapper {
     grid-template-columns: 1fr;
     gap: 48px;
@@ -599,7 +550,7 @@ h2 {
     max-width: 500px;
   }
 
-  /* Team Section — portret nad tekstem */
+  /* Team — portret jako karta nad tekstem */
   .section-team {
     display: flex;
     flex-direction: column;
@@ -655,8 +606,7 @@ h2 {
     align-items: center;
   }
 
-  /* Footer / Contact — wypełnia ekran jak na desktopie (height = viewport - marginesy).
-     Hero (.section-hero) dziedziczy 100dvh z reguł bazowych. */
+  /* Footer — kompaktowo, żeby logo mieściło się nad contact-deco */
   .section-footer .hero-card {
     padding: 44px 20px;
   }
@@ -681,7 +631,6 @@ h2 {
     text-align: center;
   }
 
-  /* Kompaktowo na telefonie: mniejsze przerwy, żeby logo wyszło wyżej (nad contact-deco) */
   .footer-title {
     margin-bottom: 28px;
   }
@@ -698,7 +647,7 @@ h2 {
 
 /* ===== A11Y / FALLBACKI ===== */
 
-/* Nagłówek ukryty wizualnie, ale czytany przez Google i czytniki ekranu */
+/* Ukryty wizualnie, czytany przez SEO/czytniki */
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -711,7 +660,7 @@ h2 {
   border: 0;
 }
 
-/* Fallback: jeśli JavaScript się nie wykona, cała treść zostaje widoczna */
+/* Bez JS: treść widoczna, floaties ukryte (top liczy skrypt) */
 .no-js .animate-on-scroll {
   opacity: 1;
   transform: none;
@@ -722,12 +671,11 @@ h2 {
   transform: translate(0, 0) scale(1);
 }
 
-/* Bez JS pozycje floaties nie są liczone (top ustawia skrypt) — ukryj, to tylko dekoracja */
 .no-js .floaties {
   display: none;
 }
 
-/* Szanuj ustawienie systemowe "ogranicz ruch" — wyłącz animacje, pokaż treść */
+/* prefers-reduced-motion: bez animacji, treść widoczna */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

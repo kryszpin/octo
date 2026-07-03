@@ -1,21 +1,14 @@
-/* ===== Scroll-triggered animations ===== */
+/* ===== Animacje wejścia przy scrollu ===== */
 (function () {
   'use strict';
 
-  /* Fallback dla bardzo starych przeglądarek bez IntersectionObserver:
-     pokaż całą treść od razu, bez animacji. */
+  /* Brak IntersectionObserver: pokaż wszystko od razu */
   if (!('IntersectionObserver' in window)) {
     document.querySelectorAll('.animate-on-scroll, .hero-card').forEach(function (el) {
       el.classList.add('visible');
     });
     return;
   }
-
-  const observerOptions = {
-    root: null,
-    rootMargin: '0px 0px -80px 0px',
-    threshold: 0.15
-  };
 
   const observer = new IntersectionObserver(function (entries) {
     entries.forEach(function (entry) {
@@ -24,20 +17,14 @@
         observer.unobserve(entry.target);
       }
     });
-  }, observerOptions);
+  }, { root: null, rootMargin: '0px 0px -80px 0px', threshold: 0.15 });
 
-  /* Observe all animated elements */
-  document.querySelectorAll('.animate-on-scroll').forEach(function (el) {
+  document.querySelectorAll('.animate-on-scroll, .hero-card').forEach(function (el) {
     observer.observe(el);
-  });
-
-  /* Observe hero/footer cards */
-  document.querySelectorAll('.hero-card').forEach(function (card) {
-    observer.observe(card);
   });
 })();
 
-/* ===== Pływające obiekty — parallax przy scrollu ===== */
+/* ===== Floaties — parallax (konfiguracja: góra styles.css) ===== */
 (function () {
   'use strict';
 
@@ -47,11 +34,8 @@
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items = [];
 
-  /* Kotwiczenie pionowe: top liczony względem sekcji (data-anchor + zmienna CSS --y),
-     dzięki czemu obiekt trzyma się swojej sekcji także po reflow na mobile.
-     Pozycja (--y) i tempo (--speed) pochodzą z konfiguracji na górze styles.css,
-     więc mają osobne wartości desktop/mobile (breakpoint 800px). Odczyt przy layout(),
-     który odpala się też po resize. Zapamiętujemy środek obiektu do obliczeń parallax. */
+  /* top = sekcja (data-anchor) + --y × jej wysokość; --y/--speed czytane z CSS,
+     więc mają wartości per breakpoint. Wywoływane też po resize. */
   function layout() {
     items = floaties.map(function (el) {
       var cs = getComputedStyle(el);
@@ -70,14 +54,12 @@
   }
 
   var ticking = false;
-  /* Parallax: przesunięcie zależne od pozycji środka obiektu względem środka ekranu.
-     Gdy sekcja jest wyśrodkowana, offset ~0; im dalej, tym większy dryf (skalowany speed). */
+  /* Dryf proporcjonalny do odległości środka obiektu od środka ekranu */
   function update() {
     var mid = window.pageYOffset + window.innerHeight / 2;
     for (var i = 0; i < items.length; i++) {
       var it = items[i];
-      var offset = (mid - it.center) * it.speed;
-      it.el.style.transform = 'translate3d(0,' + offset.toFixed(1) + 'px,0)';
+      it.el.style.transform = 'translate3d(0,' + ((mid - it.center) * it.speed).toFixed(1) + 'px,0)';
     }
     ticking = false;
   }
@@ -89,8 +71,7 @@
     }
   }
 
-  /* Recompute po pełnym załadowaniu (znane wymiary obrazków) i przy zmianie rozmiaru. */
-  window.addEventListener('load', layout);
+  window.addEventListener('load', layout); /* ponownie po załadowaniu obrazków */
   layout();
 
   if (!reduce) {

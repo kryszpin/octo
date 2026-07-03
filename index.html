@@ -4,8 +4,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Zamień klasę no-js na js jak najwcześniej: bez JS treść zostaje widoczna (fallback w CSS) -->
+  <!-- no-js -> js (fallback: bez JS treść widoczna) -->
   <script>document.documentElement.className = document.documentElement.className.replace('no-js', 'js');</script>
+  <meta name="theme-color" content="#CBAF9B">
   <title>OCTO Fabrics — Tkaniny obiciowe</title>
   <meta name="description"
     content="OCTO Fabrics to rzetelny dostawca tkanin obiciowych. Znajdujemy rozwiązania, nie tylko produkty. Dowiedz się więcej o naszej ofercie.">
@@ -21,6 +22,9 @@
     content="Rzetelny dostawca tkanin obiciowych. Znajdujemy rozwiązania, nie tylko produkty.">
   <meta property="og:url" content="https://kryszpin.github.io/octo/">
   <meta property="og:image" content="https://kryszpin.github.io/octo/assets/img-1.jpg">
+  <meta property="og:image:width" content="600">
+  <meta property="og:image:height" content="800">
+  <meta property="og:image:alt" content="Tkanina obiciowa OCTO Fabrics">
   <meta property="og:locale" content="pl_PL">
   <meta property="og:site_name" content="OCTO Fabrics">
   <meta name="twitter:card" content="summary_large_image">
@@ -57,22 +61,20 @@
 
 <body>
 
-  <!-- Pływające obiekty (parallax) nad całą stroną. aria-hidden: czysta dekoracja.
-       data-anchor = id sekcji, do której obiekt jest przypięty w pionie.
-       Pozycja (--y), poziom (--x/left), rozmiar i tempo (--speed) -> KONFIGURACJA na górze styles.css. -->
+  <!-- Floaties (parallax): data-anchor = sekcja; pozycje/skala/tempo -> góra styles.css -->
   <div class="floaties" aria-hidden="true">
-    <img src="assets/deco-1-triangle.png" alt="" class="floaty f-triangle" data-anchor="hero">
-    <img src="assets/deco-2-donut.png"    alt="" class="floaty f-donut"    data-anchor="about">
-    <img src="assets/deco-3-pillow.png"   alt="" class="floaty f-pillow"   data-anchor="services">
-    <img src="assets/deco-4-sphere.png"   alt="" class="floaty f-sphere"   data-anchor="values">
-    <img src="assets/deco-5-cube.png"     alt="" class="floaty f-cube"     data-anchor="contact">
+    <img src="assets/deco-1-triangle.png" alt="" width="442" height="458" class="floaty f-triangle" data-anchor="hero">
+    <img src="assets/deco-2-donut.png"    alt="" width="364" height="378" loading="lazy" class="floaty f-donut"  data-anchor="about">
+    <img src="assets/deco-3-pillow.png"   alt="" width="490" height="338" loading="lazy" class="floaty f-pillow" data-anchor="services">
+    <img src="assets/deco-4-sphere.png"   alt="" width="334" height="342" loading="lazy" class="floaty f-sphere" data-anchor="values">
+    <img src="assets/deco-5-cube.png"     alt="" width="354" height="364" loading="lazy" class="floaty f-cube"   data-anchor="contact">
   </div>
 
   <!-- Section 0: Hero -->
   <section class="section section-hero" id="hero">
     <div class="hero-card">
-      <img src="assets/hero-deco-1.png" alt="" class="hero-deco-1">
-      <img src="assets/hero-deco-2.png" alt="" class="hero-deco-2">
+      <img src="assets/hero-deco-1.png" alt="" width="486" height="486" class="hero-deco-1">
+      <img src="assets/hero-deco-2.png" alt="" width="950" height="950" class="hero-deco-2">
       <div class="hero-content">
         <h1 class="visually-hidden">OCTO Fabrics — tkaniny obiciowe</h1>
         <div class="hero-logo">
@@ -93,7 +95,7 @@
           nasze podejście do pracy - blisko natury, w harmonii, widząc precyzyjnie określony cel. Dziś działamy
           globalnie szukając i importując tkaniny z tą samą rzetelnością, której nauczyliśmy się u źródeł.</p>
       </div>
-      <img src="assets/img-1.jpg" alt="Tkanina Octo" class="image-placeholder image-portrait animate-on-scroll">
+      <img src="assets/img-1.jpg" alt="Tkanina Octo" width="600" height="800" loading="lazy" class="image-placeholder image-portrait animate-on-scroll">
     </div>
   </section>
 
@@ -108,7 +110,7 @@
           Tobie gotowe efekty, dzięki którym możesz skupić się na tworzeniu, mając pewność, że logistyka jest w dobrych
           rękach.</p>
       </div>
-      <img src="assets/img-2.jpg" alt="Proces wyboru" class="image-placeholder image-landscape animate-on-scroll">
+      <img src="assets/img-2.jpg" alt="Proces wyboru" width="800" height="600" loading="lazy" class="image-placeholder image-landscape animate-on-scroll">
     </div>
   </section>
 
@@ -122,14 +124,14 @@
           opłacalne i korzystne. Tam gdzie liczy się czas i sprawna realizacja, konieczne decyzje podejmujemy szybko.
           Naszą misją jest pilnowanie szczegółów po to, abyś Ty cieszył się spokojem i pewnością dostawy.</p>
       </div>
-      <img src="assets/img-3.jpg" alt="Detale splotu" class="image-placeholder image-portrait animate-on-scroll">
+      <img src="assets/img-3.jpg" alt="Detale splotu" width="600" height="800" loading="lazy" class="image-placeholder image-portrait animate-on-scroll">
     </div>
   </section>
 
   <!-- Section 4: Trzy pary rąk -->
   <section class="section section-team animate-on-scroll" id="team">
     <div class="team-bg-image">
-      <img src="assets/mirek.jpg" alt="Mirek">
+      <img src="assets/mirek.jpg" alt="Mirek" width="1120" height="1080" loading="lazy">
     </div>
     <div class="team-container animate-on-scroll">
       <div class="team-text-block">
@@ -147,7 +149,7 @@
   <!-- Section 5: Kontakt -->
   <section class="section section-footer" id="contact">
     <div class="hero-card">
-      <img src="assets/contact-deco.png" alt="" class="contact-deco">
+      <img src="assets/contact-deco.png" alt="" width="860" height="620" loading="lazy" class="contact-deco">
       <div class="footer-container animate-on-scroll">
         <div class="footer-container-inner">
           <h2 class="footer-title">Poznajmy się<br>bliżej.</h2>

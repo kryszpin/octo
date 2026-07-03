@@ -26,7 +26,7 @@ Język strony: **polski**. Właściciel/klient: Andrzej (pracuje dla kolegi). Pr
 | [index.html](index.html) | **Właściwa strona produkcyjna** serwowana przez GitHub Pages. Cała treść tu (jeden plik, brak routingu). |
 | [styles.css](styles.css) | Wszystkie style. Responsywność opisana niżej. |
 | [script.js](script.js) | Animacje scroll-triggered + fallbacki. |
-| [assets/](assets/) | Grafiki używane na stronie (logo.svg, mirek.jpg, img-1/2/3.jpg, hero-deco-1/2.png, contact-deco.png). **Publikowane.** |
+| [assets/](assets/) | Grafiki używane na stronie (logo.svg, mirek.jpg, img-1/2/3.jpg, hero-deco-1/2.png, contact-deco.png, deco-1..5-*.png — floaties). **Publikowane.** |
 | [resources/](resources/) | Grafiki inspiracyjne/robocze (Gemini, Unsplash, screeny). **NIE publikowane** — w `.gitignore`. |
 | [push.sh](push.sh) | Skrypt deployu: `git add . && commit (z datą) && push`. |
 | [notes.md](notes.md) | Szczegółowe notatki, historia, sekcja „Do zrobienia później". |
@@ -44,10 +44,15 @@ Język strony: **polski**. Właściciel/klient: Andrzej (pracuje dla kolegi). Pr
 
 Po przebudowie są **dwa progi** (stare 1024/768 już NIE istnieją):
 
-- **> 1180px** — pełny desktop, układ 2-kolumnowy (`.content-wrapper` grid `minmax(0,550px) minmax(0,550px)`).
-- **`@media (max-width: 1180px)`** — steruje **wyłącznie typografią** (fonty schodzą do rozmiarów „telefonowych": `h2` → `clamp(32px,10vw,56px)`, tytuły → `clamp(36px,10vw,56px)`, akapity 18px, lista zespołu 26px). Układ NIE zmienia się tutaj.
+- **> 1180px** — pełny desktop, układ 2-kolumnowy (wspólna reguła grid `.content-wrapper, .team-container, .footer-container`).
+- **`@media (max-width: 1180px)`** — steruje **typografią** (fonty schodzą do rozmiarów „telefonowych") + ma własny zestaw zmiennych floaties/deco. Układ NIE zmienia się tutaj.
 - **`@media (max-width: 800px)`** — **jedyny próg układu**: przejście na 1 kolumnę, tryb mobilny (page-padding 20px, card-margin 16px, portret zespołu jako karta nad tekstem, stopka/hero wypełniają ekran).
-- **Dekoracje hero/stopki skalują się PŁYNNIE przez `clamp()`** (rozmiar telefonowy przy ≤800px → pełny desktop przy ≥1180px), bez skoków. Magiczne liczby w `clamp()` (np. `clamp(320px, 165.79vw - 1006.3px, 950px)`) są policzone tak, żeby trafić w te dwa punkty — NIE „poprawiaj" ich na oko; jak trzeba zmienić rozmiar, przelicz formułę liniową (telefon@800 → desktop@1180).
+
+### Floaties + deco — konfiguracja na GÓRZE styles.css
+Pływające kształty (parallax, `deco-1..5-*.png`) i dekoracje hero/stopki (`hero-deco-1/2`, `contact-deco`) są sterowane **wyłącznie zmiennymi CSS w bloku konfiguracyjnym na początku styles.css** — osobne wartości dla 3 breakpointów (desktop / ≤1180 / ≤800). Stare formuły `clamp()` z magicznymi liczbami NIE istnieją.
+- Floaties: `--fl-<kształt>-x` (lewa krawędź w % okna, może być ujemna), `-y` (0..1 pion w sekcji z `data-anchor`), `-speed` (tempo parallax, minus = pod prąd), `--fl-scale` (rozmiar+cień). Silnik: `.floaty`/`.f-*` + pętla rAF w script.js.
+- Deco: `--hd1-*` (góra-lewo), `--hd2-*` (góra-prawo), `--cd-*` (dół-prawo); offsety px (minus = wystaje za kartę), `*-scale` gdzie 1 = wymiar z Figmy (486/950/860).
+- Rozmiary bazowe floaties = szer. z Figmy (klatka 1920) / 1920 × 100vw — proporcje 1:1 z projektem na każdej szerokości.
 
 ### Rytm pionowy na telefonie (≤800px) — wszystkie odstępy = 48px
 Kluczowa zasada uzgodniona z właścicielem: **każdy odstęp między blokami treści = 48px**.
@@ -69,7 +74,7 @@ Kluczowa zasada uzgodniona z właścicielem: **każdy odstęp między blokami tr
 ## 7. Stan i co dalej (TODO)
 
 1. **Grafiki hero/footer** — właściciel (Andrzej) dopracowuje grafiki dekoracyjne; po dostarczeniu dopasować zachowanie/pozycje. (W TOKU po jego stronie.)
-2. **Kompresja obrazków** (ODŁOŻONE na koniec) — `assets/*.jpg` ~1,5 MB każdy. Plan: WebP + `srcset`, `loading="lazy"` (poza hero), `width`/`height` (CLS). Narzędzia: `cwebp`/`sips`. Szczegóły w [notes.md](notes.md).
+2. **Kompresja obrazków** — `loading="lazy"` i `width`/`height` już SĄ w HTML; została konwersja do **WebP** (assets ~6 MB łącznie, najcięższe: hero-deco-2.png 1,4 MB — ładuje się nad foldem!). Narzędzia: `cwebp`/`sips`. Szczegóły w [notes.md](notes.md).
 3. **Token GitHub** — działa (w Keychain). Ewentualna rotacja „na spokojnie".
 
 > Styl pracy uzgodniony z właścicielem: po każdej zaakceptowanej zmianie **commit + push od razu** (chyba że powie „nie pushuj"). Commity opisowe po polsku. Właściciel ma dobre oko do detali (odstępy, marginesy) — warto weryfikować pomiarem w kodzie, nie „na oko".
