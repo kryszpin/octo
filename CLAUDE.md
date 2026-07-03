@@ -26,7 +26,7 @@ Język strony: **polski**. Właściciel/klient: Andrzej (pracuje dla kolegi). Pr
 | [index.html](index.html) | **Właściwa strona produkcyjna** serwowana przez GitHub Pages. Cała treść tu (jeden plik, brak routingu). |
 | [styles.css](styles.css) | Wszystkie style. Responsywność opisana niżej. |
 | [script.js](script.js) | Animacje scroll-triggered + fallbacki. |
-| [assets/](assets/) | Grafiki używane na stronie (logo.svg, mirek.jpg, img-1/2/3.jpg, hero-deco-1/2.png, contact-deco.png, deco-1..5-*.png — floaties). **Publikowane.** |
+| [assets/](assets/) | Grafiki strony — wszystko **WebP** (img-1/2/3, mirek, hero-deco-1/2, contact-deco, deco-1..5 floaties) + logo.svg + img-1.jpg (tylko dla og:image). **Publikowane.** |
 | [resources/](resources/) | Grafiki inspiracyjne/robocze (Gemini, Unsplash, screeny). **NIE publikowane** — w `.gitignore`. |
 | [push.sh](push.sh) | Skrypt deployu: `git add . && commit (z datą) && push`. |
 | [notes.md](notes.md) | Szczegółowe notatki, historia, sekcja „Do zrobienia później". |
@@ -74,7 +74,7 @@ Kluczowa zasada uzgodniona z właścicielem: **każdy odstęp między blokami tr
 ## 7. Stan i co dalej (TODO)
 
 1. **Grafiki hero/footer** — właściciel (Andrzej) dopracowuje grafiki dekoracyjne; po dostarczeniu dopasować zachowanie/pozycje. (W TOKU po jego stronie.)
-2. **Kompresja obrazków** — `loading="lazy"` i `width`/`height` już SĄ w HTML; została konwersja do **WebP** (assets ~6 MB łącznie, najcięższe: hero-deco-2.png 1,4 MB — ładuje się nad foldem!). Narzędzia: `cwebp`/`sips`. Szczegóły w [notes.md](notes.md).
+2. ~~Kompresja obrazków~~ **ZROBIONE** — wszystkie grafiki w **WebP** (assets 5,9 MB → ~0,9 MB). `img-1.jpg` celowo zostaje: to `og:image` + JSON-LD `image` (scrapery social nie zawsze wspierają WebP). Nowe grafiki konwertować przez `cwebp -q 80` (foty) / `-q 82 -alpha_q 90` (PNG z alfą); binarka do pobrania z webmproject (brak w systemie).
 3. **Token GitHub** — działa (w Keychain). Ewentualna rotacja „na spokojnie".
 
 > Styl pracy uzgodniony z właścicielem: po każdej zaakceptowanej zmianie **commit + push od razu** (chyba że powie „nie pushuj"). Commity opisowe po polsku. Właściciel ma dobre oko do detali (odstępy, marginesy) — warto weryfikować pomiarem w kodzie, nie „na oko".

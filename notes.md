@@ -61,12 +61,13 @@ Witryna internetowa dla **OCTO Fabrics** (dostawca tkanin obiciowych). Strona op
 
 ## 📋 Do zrobienia później
 
-### 1. Kompresja / optymalizacja grafik (ODŁOŻONE — zrobić na końcu)
-Grafiki w `assets/` są ciężkie (`img-*.jpg`, `mirek.jpg` ~1,3–1,8 MB każda). Wpływa to na czas ładowania (LCP) i SEO.
-- **Plan:** konwersja na **WebP** (spadek ~70–90%) + ewentualnie wersje responsywne (`srcset`).
-- Po podmianie dodać do `<img>`: `loading="lazy"` (poza hero) oraz atrybuty `width`/`height` (eliminują CLS — skakanie layoutu).
-- Można użyć `cwebp` albo `sips` (wbudowane w macOS). Claude przygotuje komendy, gdy ruszymy.
-- **Uwaga przy `mirek.jpg`:** rozważyć przycięcie zdjęcia u źródła (mniej białego studyjnego tła nad/pod sylwetką) — wtedy CSS nie musi kombinować z kadrowaniem.
+### 1. Kompresja / optymalizacja grafik — ✅ ZROBIONE (2026-07-03)
+Wszystkie grafiki przekonwertowane do **WebP** (`cwebp 1.5.0`): assets 5,9 MB → ~0,9 MB (−86%).
+- Foty: `cwebp -q 80 -m 6`; PNG z alfą (deco): `cwebp -q 82 -alpha_q 90 -m 6`.
+- `loading="lazy"` (poniżej foldu) + `width`/`height` (CLS) dodane w HTML.
+- `img-1.jpg` celowo zostaje — to `og:image` + JSON-LD `image` (scrapery social bywają bez WebP).
+- `cwebp` nie jest zainstalowany w systemie — binarki z webmproject (Google) pobierane ad hoc.
+- Nadal aktualne przy okazji: przycięcie `mirek` u źródła (mniej białego tła).
 
 ### 2. Grafiki hero i stopki (W TOKU — po stronie właściciela)
 Andrzej dopracowuje grafiki dekoracyjne w hero i footer (dochodzą dodatkowe informacje). Po dostarczeniu — kontynuujemy dopasowanie ich zachowania/pozycji.
