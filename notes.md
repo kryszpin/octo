@@ -72,13 +72,12 @@ Wszystkie grafiki przekonwertowane do **WebP** (`cwebp 1.5.0`): assets 5,9 MB �
 ### 2. Grafiki hero i stopki (W TOKU — po stronie właściciela)
 Andrzej dopracowuje grafiki dekoracyjne w hero i footer (dochodzą dodatkowe informacje). Po dostarczeniu — kontynuujemy dopasowanie ich zachowania/pozycji.
 
-### 3. Podpięcie domeny octofabrics.com (checklist na moment przełączenia)
-`robots.txt` i `sitemap.xml` już są w repo (wskazują na https://octofabrics.com/ — zaczną działać z chwilą podpięcia domeny; w podścieżce github.io są ignorowane).
-1. **DNS u rejestratora:** apex `octofabrics.com` → 4 rekordy A: `185.199.108.153`, `.109.153`, `.110.153`, `.111.153` (+ opcjonalnie `www` CNAME → `kryszpin.github.io`).
-2. **GitHub:** Settings → Pages → Custom domain: `octofabrics.com` (utworzy plik `CNAME` w repo) → po weryfikacji zaznaczyć **Enforce HTTPS**. NIE dodawać pliku CNAME przed ustawieniem DNS (strona by padła).
-3. **W index.html podmienić URL-e** z `https://kryszpin.github.io/octo/` na `https://octofabrics.com/`: canonical, og:url, og:image, JSON-LD (url, logo, image).
-4. **Google Search Console:** dodać usługę (domena), zgłosić `sitemap.xml`, poprosić o indeksację.
-5. Opcjonalnie: Profil Firmy w Google (Maps) z linkiem do strony.
+### 3. Domena octofabrics.com — ✅ URUCHOMIONA (2026-07-07)
+Strona produkcyjna działa na **https://octofabrics.com/** — hosting z **ręcznym uploadem plików** (NIE GitHub Pages z custom domain; github.io zostaje jako kopia z repo). Po każdej zmianie: push do repo + upload na hosting.
+- `robots.txt` + `sitemap.xml` — na serwerze, działają.
+- Canonical/og/JSON-LD w `index.html` podmienione na octofabrics.com (2026-07-07) — **wymaga re-uploadu po każdej zmianie**.
+- Kopia na github.io ma ten sam canonical → duplikat poprawnie wskazuje na domenę.
+- Zostało: **Google Search Console** (weryfikacja, sitemap, prośba o indeksację) + opcjonalnie Profil Firmy w Google — instrukcja przekazana klientowi.
 
 ### 4. Token GitHub `neat-proto-deploy` (opcjonalnie)
 Wciąż aktywny, współdzielony z innym projektem. Do ewentualnej rotacji „na spokojnie" (nie pilne — wyciek był tylko lokalny, nigdy nie trafił do repo).

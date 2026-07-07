@@ -32,10 +32,11 @@ Język strony: **polski**. Właściciel/klient: Andrzej (pracuje dla kolegi). Pr
 | [notes.md](notes.md) | Szczegółowe notatki, historia, sekcja „Do zrobienia później". |
 | `.gitignore` | Ignoruje `resources/`, `.DS_Store`, `.claude/`. |
 
-## 4. Publikacja (GitHub Pages) i git
+## 4. Publikacja i git
 
-- Repo: **`kryszpin/octo`** → URL: **https://kryszpin.github.io/octo/**
-- Deploy: `./push.sh` (albo zwykły `git push`). Pages buduje się ~1 min.
+- **Produkcja: https://octofabrics.com/** — osobny hosting, pliki wgrywane **ręcznie (upload)** przez Andrzeja. Po zmianach w repo trzeba mu przypomnieć o re-uploadzie!
+- Repo: **`kryszpin/octo`** → https://kryszpin.github.io/octo/ (kopia z repo; canonical wskazuje na octofabrics.com).
+- Push do repo: `./push.sh` (albo zwykły `git push`). Pages buduje się ~1 min.
 - **Auth:** remote to czysty HTTPS (`https://github.com/kryszpin/octo.git`, **bez tokena w URL**). Poświadczenia trzyma **macOS Keychain** (`credential.helper = osxkeychain`). Przy pierwszym pushu git pyta o login (`kryszpin`) + hasło (= **Personal Access Token classic**, scope `repo`). Keychain zapamiętuje.
   - ⚠️ Jeśli push zwróci `Invalid username or token` → token wygasł/unieważniony. Trzeba wygenerować nowy PAT na GitHubie i wpisać przy `./push.sh` (w terminalu, nie w czacie!). Stary helper czyści się: `printf "protocol=https\nhost=github.com\n\n" | git credential-osxkeychain erase`.
 - **Historia tokenów:** pierwotnie token był wklejony jawnie w `.git/config` (wyciek, naprawione — usunięty z configu). Potem była rotacja, bo stary token został unieważniony.
